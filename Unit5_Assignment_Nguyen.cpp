@@ -23,7 +23,7 @@ int main()
 {
     cout << "VsCodeWorking now with GitHub" << endl;
     cout << "Testing the source control " << endl;
-    cout << "Another Test" << endl
+    cout << "Another Test" << endl;
     return 0;
 
 }
