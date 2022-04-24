@@ -21,7 +21,7 @@
 #include "Input_Validation_Extended.h"
 using namespace std; 
 
-struct MenuItem
+struct NewMenuItem
 {
   string name;
   double itemCost; 
@@ -32,17 +32,17 @@ struct MenuItem
 };
 
 //function definitions
-void populateMenu(vector<MenuItem> &entireMenu)
+void populateMenu(vector<NewMenuItem> &entireMenu)
 {
   //put some default values in our Menu
   const int numItems = 7; 
-  MenuItem Item1; 
-  MenuItem Item2;
-  MenuItem Item3; 
-  MenuItem Item4;
-  MenuItem Item5;
-  MenuItem Item6;
-  MenuItem Item7;    
+  NewMenuItem Item1; 
+  NewMenuItem Item2;
+  NewMenuItem Item3; 
+  NewMenuItem Item4;
+  NewMenuItem Item5;
+  NewMenuItem Item6;
+  NewMenuItem Item7;    
 
   entireMenu.push_back(Item1); //add to the end of list the Item1
   entireMenu.push_back(Item2); //add to the end of list the Item2
@@ -70,7 +70,7 @@ void populateMenu(vector<MenuItem> &entireMenu)
 
 }
 
-void showMenu(vector<MenuItem> &m)
+void showMenu(vector<NewMenuItem> &m)
 {
   cout << fixed << setprecision(2);//set doubles to 2 decimal places
   cout << "DrT's Effcient Menu" << endl; 
@@ -85,7 +85,7 @@ void showMenu(vector<MenuItem> &m)
 
 }
 
-void acceptOrder(vector<MenuItem> &m)
+void acceptOrder(vector<NewMenuItem> &m)
 {
   char option = '\0';// the user-selected menu item
   double subtotal = 0.0; 
@@ -146,7 +146,7 @@ void acceptOrder(vector<MenuItem> &m)
 
 int main() 
 {
-  vector<MenuItem> wholeMenu; 
+  vector<NewMenuItem> wholeMenu; 
   populateMenu(wholeMenu); //put some default values in the menu
   showMenu(wholeMenu); //print the current data of the menu on screen 
   acceptOrder(wholeMenu); 

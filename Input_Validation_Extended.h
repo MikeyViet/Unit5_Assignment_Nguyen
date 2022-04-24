@@ -1,15 +1,15 @@
-//From: http://stackoverflow.com/questions/514420/how-to-validate-numeric-input-c 
-#include <ios>  // Provides ios_base::failure
-#include <iostream>  // Provides cin
-#include<string> //for string manipulation
-#include<sstream> //for string manipulation and comparison
-using namespace std; 
+// From: http://stackoverflow.com/questions/514420/how-to-validate-numeric-input-c
+#include <ios>      // Provides ios_base::failure
+#include <iostream> // Provides cin
+#include <string>   //for string manipulation
+#include <sstream>  //for string manipulation and comparison
+using namespace std;
 
-//Function Prototypes
-int validateInt(int &); //use the validation method to vaildate and return a data type integer pass by reference &
-double validateDouble(double &); //use the validation method to vaildate and return a data type double pass by reference &
-char validateChar(char &); //use the validation method to vaildate and return a data type char pass by reference &
-string validateString(string &); //use the validation method to vaildate and return a data type string pass by reference &
+// Function Prototypes
+int validateInt(int &);          // use the validation method to vaildate and return a data type integer pass by reference &
+double validateDouble(double &); // use the validation method to vaildate and return a data type double pass by reference &
+char validateChar(char &);       // use the validation method to vaildate and return a data type char pass by reference &
+string validateString(string &); // use the validation method to vaildate and return a data type string pass by reference &
 
 template <typename T>
 T getValidatedInput()
@@ -40,10 +40,10 @@ T getValidatedInput()
     return result;
 }
 
-//Function Definitions
+// Function Definitions
 int validateInt(int &intInput)
 {
-	while (true)
+    while (true)
     {
         cout << "Enter an integer: ";
 
@@ -59,13 +59,13 @@ int validateInt(int &intInput)
 
         break;
     }
-    
-    return intInput; 
+
+    return intInput;
 }
 
 double validateDouble(double &doubleInput)
 {
-	while (true)
+    while (true)
     {
         cout << "Enter a number with or without decimals (double): ";
 
@@ -75,18 +75,18 @@ double validateDouble(double &doubleInput)
         }
         catch (exception e)
         {
-            cerr << e.what() << ": Invalid input."<< endl;
+            cerr << e.what() << ": Invalid input." << endl;
             continue;
         }
 
         break;
     }
-    
-    return doubleInput; 
+
+    return doubleInput;
 }
 
 char validateChar(char &charInput)
-{ 
+{
     while (true)
     {
         cout << "Enter a single letter or number (1 digit): ";
@@ -97,34 +97,34 @@ char validateChar(char &charInput)
         }
         catch (exception e)
         {
-            cerr << e.what() << ": Invalid input."<< endl;
+            cerr << e.what() << ": Invalid input." << endl;
             continue;
         }
 
         break;
     }
-    
-    return charInput; 
+
+    return charInput;
 }
 
 string validateString(string &stringInput)
 {
-    while (true) //use cin, getline() for this 
+    while (true) // use cin, getline() for this
     {
         cout << "Enter a word (no spaces): ";
 
         try
         {
-            stringInput  = getValidatedInput<string>();
+            stringInput = getValidatedInput<string>();
         }
         catch (exception e)
         {
-            cerr << e.what() << ": Invalid input."<< endl;
+            cerr << e.what() << ": Invalid input." << endl;
             continue;
         }
 
         break;
     }
-    
-    return stringInput; 
+
+    return stringInput;
 }
