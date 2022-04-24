@@ -1,9 +1,9 @@
-/***********************************************************************************
+/**************************************************************************
  *  Unit 5 Assignment - Vectors, Functions, Conditions, Loops, Color, and
  *      Sorting Values
  *
- *  Student:    Michael Nguyen
- *  Class:       COSC-1437 Spring 2022
+ *  Student:   Michael Nguyen
+ *  Class:     COSC-1437 Spring 2022
  *  Teacher:   Dr. Tyson McMillan
  *
  *  Description:    This program will demonstrate Accepting numbers into
@@ -11,13 +11,14 @@
  *  native to vector sorting methods) to sort the values from Greatest to
  *  Least, Re-write to a file, upgrading from Struct to an Object-Oriented
  *  menu process.
- ***********************************************************************************/
+ ***************************************************************************/
 
 //A  Restaurant Project Struct style Dr_T Dr. Tyson McMillan 10-2-2019
 #include <iostream>
 #include<string>
 #include<vector>
 #include<iomanip>
+#include "Input_Validation_Extended.h"
 using namespace std; 
 
 struct MenuItem
