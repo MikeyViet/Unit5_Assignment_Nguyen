@@ -1,0 +1,16 @@
+{
+    "C_Cpp.autocompleteAddParentheses": true,
+    "editor.autoClosingBrackets": "always",
+    "editor.lineNumbers": "relative",
+    "editor.wordWrap": "on",
+    "editor.wrappingIndent": "indent",
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.cursorStyle": "block-outline",
+    "C_Cpp.configurationWarnings": "Disabled",
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
+    "C_Cpp.vcFormat.indent.accessSpecifiers": true,
+    "C_Cpp.vcFormat.indent.braces": true,
+    "C_Cpp.vcFormat.indent.caseContentsWhenBlock": true,
+    "cmake.cacheInit": null
+}
