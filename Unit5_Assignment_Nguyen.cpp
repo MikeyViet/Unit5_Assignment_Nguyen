@@ -26,9 +26,7 @@ struct NewMenuItem
   string name;
   double itemCost; 
   string desc;
-
   char addLetter; 
-  
   char removeLetter;
   int count; 
 };
