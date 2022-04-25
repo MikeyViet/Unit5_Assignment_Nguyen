@@ -1,48 +1,33 @@
-/**************************************************************************
- *  Unit 5 Assignment - Vectors, Functions, Conditions, Loops, Color, and
- *      Sorting Values
- *
- *  Student:   Michael Nguyen
- *  Class:     COSC-1437 Spring 2022
- *  Teacher:   Dr. Tyson McMillan
- *
- *  Description:    This program will demonstrate Accepting numbers into
- *  a vector, getting the average, using bubble sort (or another algorithm
- *  native to vector sorting methods) to sort the values from Greatest to
- *  Least, Re-write to a file, upgrading from Struct to an Object-Oriented
- *  menu process.
- ***************************************************************************/
-
 //A  Restaurant Project Struct style Dr_T Dr. Tyson McMillan 10-2-2019
+
 #include <iostream>
 #include<string>
 #include<vector>
 #include<iomanip>
-#include "Input_Validation_Extended.h"
 using namespace std; 
 
-struct NewMenuItem
+struct MenuItem
 {
   string name;
   double itemCost; 
-  string desc;
+  string desc; 
   char addLetter; 
   char removeLetter;
   int count; 
 };
 
 //function definitions
-void populateMenu(vector<NewMenuItem> &entireMenu)
+void populateMenu(vector<MenuItem> &entireMenu)
 {
   //put some default values in our Menu
   const int numItems = 7; 
-  NewMenuItem Item1; 
-  NewMenuItem Item2;
-  NewMenuItem Item3; 
-  NewMenuItem Item4;
-  NewMenuItem Item5;
-  NewMenuItem Item6;
-  NewMenuItem Item7;    
+  MenuItem Item1; 
+  MenuItem Item2;
+  MenuItem Item3; 
+  MenuItem Item4;
+  MenuItem Item5;
+  MenuItem Item6;
+  MenuItem Item7;    
 
   entireMenu.push_back(Item1); //add to the end of list the Item1
   entireMenu.push_back(Item2); //add to the end of list the Item2
@@ -63,17 +48,17 @@ void populateMenu(vector<NewMenuItem> &entireMenu)
     entireMenu[i].addLetter = defaultAddLetters[i]; 
     entireMenu[i].removeLetter = defaultRemoveLetters[i]; 
     entireMenu[i].itemCost = (3.00 + i); //set a random starter cost for each item
-    entireMenu[i].count = 0; //initialze all counts to 0
-    entireMenu[i].desc = "delicious"; //set all default desc to "delicous"
+    entireMenu[i].count = 0; //initialize all counts to 0
+    entireMenu[i].desc = "delicious"; //set all default desc to "delicious"
   }
 
 
 }
 
-void showMenu(vector<NewMenuItem> &m)
+void showMenu(vector<MenuItem> &m)
 {
   cout << fixed << setprecision(2);//set doubles to 2 decimal places
-  cout << "DrT's Effcient Menu" << endl; 
+  cout << "DrT's Efficient Menu" << endl; 
   cout << "ADD  \tNAME \t COST \tREMOVE\tCOUNT\tDESC"<<endl; 
   for(int i = 0; i < m.size(); i++)
   {
@@ -85,7 +70,7 @@ void showMenu(vector<NewMenuItem> &m)
 
 }
 
-void acceptOrder(vector<NewMenuItem> &m)
+void acceptOrder(vector<MenuItem> &m)
 {
   char option = '\0';// the user-selected menu item
   double subtotal = 0.0; 
@@ -141,12 +126,12 @@ void acceptOrder(vector<NewMenuItem> &m)
   }while(option != 'x' && option != 'X'); 
   cout << "\nThank you for placing your order." << endl; 
   //handle the tip process here
-  //handle reciept generation here
+  //handle recept generation here
 }
 
 int main() 
 {
-  vector<NewMenuItem> wholeMenu; 
+  vector<MenuItem> wholeMenu; 
   populateMenu(wholeMenu); //put some default values in the menu
   showMenu(wholeMenu); //print the current data of the menu on screen 
   acceptOrder(wholeMenu); 
