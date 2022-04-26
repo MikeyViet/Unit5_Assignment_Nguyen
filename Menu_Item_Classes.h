@@ -4,6 +4,8 @@
  **************************************************************************/
 #ifndef MENU_ITEM_CLASSES_H
 #define MENU_ITEM_CLASSES_H
+
+#include "Menu_Item_Functions.h"
 #include <string>
 
 using namespace std;
@@ -14,7 +16,7 @@ using namespace std;
  * Heirarchy:   Base
  * Attributes:  Access -> Protected - cost(double)
  * Methods:     Access -> Public - MenuItem()x2, setCost(), getCost(),
- *              ~MenuItem()
+ *              
  *
  * Description: The base class for all the items on the menu. It only 
  *              contains item cost.
@@ -36,7 +38,7 @@ public:
     
     //accessor methods
     double getCost() const;
-    ~MenuItem(); // destructor for base class
+    
 };
 
 /**************************************************************************
@@ -62,7 +64,7 @@ private:
     double totalItemCost;
 public:
     //default constructor
-    Menu(){letter = 'CHAR'; itemCount = 0; totalItemCost = 0.0;}
+    Menu(){letter = ' '; itemCount = 0; totalItemCost = 0.0;}
     //Parameterized constructor
     Menu(char l, int i, double  ){letter = l; itemCount = i; totalItemCost = 0.0;}
 
@@ -81,6 +83,7 @@ public:
     void decreaseCount();
     void displayMenu();
     void controlMenu(MenuItem&);
+  //  
 };
 /**************************************************************************
  * DataType:    Class
@@ -88,7 +91,7 @@ public:
  * Heirarchy:   Derived from MenuItem
  * Attributes:  Access -> Protected - name(string), description(string)
  * Methods:     Access -> Public - Food()x2, setName(), setDescription(),
- *              getName(), getDescription(), ~Food()
+ *              getName(), getDescription(), 
  *
  * Description: This class holds the name and description of the Item that
  *              a person can eat.
@@ -112,7 +115,7 @@ public:
     string getName() const;
     string getDescription() const;
     bool getHeated() const;
-    ~Food(); // destructor for derived class
+    
 };
 
 /**************************************************************************
@@ -121,7 +124,7 @@ public:
  * Heirarchy:   Derived from Food
  * Attributes:  Access -> Protected - temp(string), ice(bool)
  * Methods:     Access -> Public - Drink()x2, setTemp(), setIced(),
- *              getTemp(), getIced(), ~Drink()
+ *              getTemp(), getIced(), 
  *
  * Description: This class holds the temperature (hot, cold, warm) and if
  *              the drinkable item needs to have ice or without.
@@ -144,7 +147,136 @@ public:
     //accessor methods
     string getTemp() const;
     bool getIced() const;
-    ~Drink(); // destructor for derived class
+    
 };
 
+
+/**************************************************************************
+ * CLASS METHOD DEFINITIONS
+ * name:        Menu
+ * heirarchy:   Base
+ **************************************************************************/
+
+// mutator methods
+void Menu::setLetter(char l)
+{
+    letter = l;
+}
+void Menu::setItemCount(int cnt)
+{
+    itemCount = cnt;
+}
+void Menu::setTotalCost(double cst)
+{
+    totalItemCost = cst;
+}
+
+// accessor methods
+char Menu::getLetter() const
+{
+    return letter;
+}
+int Menu::getItemCount() const
+{
+    return itemCount;
+}
+
+// general methods
+double Menu::getTotalItemCost() const
+{
+    return totalItemCost;
+}
+void Menu::increaseCount()
+{
+    itemCount++;
+}
+void Menu::decreaseCount()
+{
+    itemCount--;
+}
+void Menu::displayMenu()
+{
+    
+}
+void Menu::controlMenu(MenuItem &menuObj)
+{
+    
+        cout << fixed << setprecision(2); // set doubles to 2 decimal places
+        cout << "This is DrT's Efficient Menu to Imitate" << endl;
+        cout << "ADD  \tNAME \t COST \tREMOVE\tCOUNT\tDESC" << endl;
+/*         cout << letter << ")" << setw(10) << setw(5) << 
+                "$" << totalItemCost << setw(5) << "(" << "char" << 
+                ")" << setw(7) << itemCount << setw(13) << 
+                menuObj.description << endl; */
+        
+    
+}
+
+/**************************************************************************
+ * CLASS METHOD DEFINITIONS
+ * name:        MenuItem
+ * heirarchy:   Derived from MenuItem
+ **************************************************************************/
+void MenuItem::setCost(double cst)
+{
+    cost = cst;
+}
+double MenuItem::getCost() const
+{
+    return cost;
+}
+
+/**************************************************************************
+ * CLASS METHOD DEFINITIONS
+ * name:        Food
+ * heirarchy:   Derived from MenuItem
+ **************************************************************************/
+void Food::setName(string nm)
+{
+    name = nm;
+}
+void Food::setDescription(string desc)
+{
+    description = desc;
+}
+void Food::setHeated(bool heat)
+{
+    heated = heat;
+}
+string Food::getName() const
+{
+    return name;
+}
+string Food::getDescription() const
+{
+    return description;
+}
+bool Food::getHeated() const
+{
+    return heated;
+}
+
+/**************************************************************************
+ * CLASS METHOD DEFINITIONS
+ * name:        Drink
+ * heirarchy:   Derived from Food
+ **************************************************************************/
+void Drink::setTemp(string tmp)
+{
+    temp = tmp;
+}
+void Drink::setIced(bool ice)
+{
+    iced = ice;
+}
+string Drink::getTemp() const
+{
+    return temp;
+}
+bool Drink::getIced() const
+{
+    return iced;
+}
+
 #endif
+
