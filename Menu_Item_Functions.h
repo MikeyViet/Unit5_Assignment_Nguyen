@@ -13,6 +13,49 @@
 
 /**************************************************************************
  * CLASS METHOD DEFINITIONS
+ * name:        Menu
+ * heirarchy:   Base
+ **************************************************************************/
+  //mutator methods
+    void Menu::setLetter(char l)
+    {
+       letter = l; 
+    }
+    void Menu::setItemCount(int cnt)
+    {
+        itemCount = cnt;
+    }
+    void Menu::setTotalCost(double cst)
+    {
+       totalItemCost = cst;
+    }
+
+    //accessor methods
+    char Menu::getLetter()const
+    {
+        return letter;
+    }
+    int Menu::getItemCount()const
+    {
+        return itemCount;
+    }
+
+    //general methods
+    double Menu::getTotalItemCost()const
+    {
+        return totalItemCost;
+    }
+    void Menu::increaseCount(MenuItem& itemObj)
+    {
+        
+    }
+/*     void Menu::decreaseCount(MenuItem&);
+    void Menu::displayMenu();
+    void Menu::controlMenu(Menu&); */
+
+
+/**************************************************************************
+ * CLASS METHOD DEFINITIONS
  * name:        MenuItem
  * heirarchy:   Derived from MenuItem
  **************************************************************************/
@@ -20,21 +63,9 @@ void MenuItem::setCost(double cst)
 {
     cost = cst;
 }
-void MenuItem::setCount(int cnt)
-{
-    count = cnt;
-}
 double MenuItem::getCost() const
 {
     return cost;
-}
-int MenuItem::getCount() const
-{
-    return count;
-}
-void MenuItem::showMenu(MenuItem& MenuObj)
-{
-    
 }
 
 /**************************************************************************
@@ -89,4 +120,4 @@ bool Drink::getIced() const
     return iced;
 }
 
-#endif
+#endif 

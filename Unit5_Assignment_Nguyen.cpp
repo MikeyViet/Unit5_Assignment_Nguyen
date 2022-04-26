@@ -37,9 +37,9 @@ void populateMenu(vector<MenuItem> &entireMenu)
   entireMenu.push_back(Item6); //add to the end of list the Item6
   entireMenu.push_back(Item7); //add to the end of list the Item7
 
-  vector<string> defaultMenuNames = {"Green Tea", "Burrito", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7"}; 
-  vector<char> defaultAddLetters = {'A', 'B', 'C', 'D', 'E', 'F', 'G'}; 
-  vector<char> defaultRemoveLetters = {'a', 'b', 'c', 'd', 'e', 'f', 'g'}; 
+  vector<string> defaultMenuNames {"Green Tea", "Burrito", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7"};
+  vector<char> defaultAddLetters  {'A', 'B', 'C', 'D', 'E', 'F', 'G'}; 
+  vector<char> defaultRemoveLetters {'a', 'b', 'c', 'd', 'e', 'f', 'g'}; 
 
   for(int i = 0; i < numItems; i++)
   {
@@ -48,8 +48,8 @@ void populateMenu(vector<MenuItem> &entireMenu)
     entireMenu[i].addLetter = defaultAddLetters[i]; 
     entireMenu[i].removeLetter = defaultRemoveLetters[i]; 
     entireMenu[i].itemCost = (3.00 + i); //set a random starter cost for each item
-    entireMenu[i].count = 0; //initialize all counts to 0
-    entireMenu[i].desc = "delicious"; //set all default desc to "delicious"
+    entireMenu[i].count = 0; //initialze all counts to 0
+    entireMenu[i].desc = "delicious"; //set all default desc to "delicous"
   }
 
 
@@ -58,7 +58,7 @@ void populateMenu(vector<MenuItem> &entireMenu)
 void showMenu(vector<MenuItem> &m)
 {
   cout << fixed << setprecision(2);//set doubles to 2 decimal places
-  cout << "DrT's Efficient Menu" << endl; 
+  cout << "DrT's Effcient Menu" << endl; 
   cout << "ADD  \tNAME \t COST \tREMOVE\tCOUNT\tDESC"<<endl; 
   for(int i = 0; i < m.size(); i++)
   {
@@ -126,7 +126,7 @@ void acceptOrder(vector<MenuItem> &m)
   }while(option != 'x' && option != 'X'); 
   cout << "\nThank you for placing your order." << endl; 
   //handle the tip process here
-  //handle recept generation here
+  //handle reciept generation here
 }
 
 int main() 
@@ -138,3 +138,23 @@ int main()
   
   return 0; 
 }
+
+
+
+
+
+
+/* #include <iostream>
+#include<string>
+#include<vector>
+#include<iomanip>
+#include"Menu_Item_Classes.h"
+#include"Menu_Item_Functions.h"
+
+using namespace std; 
+int main() 
+{
+
+  cout << "Program is working at the moment!\n"; 
+  return 0; 
+} */

@@ -15,6 +15,7 @@
     "cmake.cacheInit": null,
     "files.associations": {
         "vector": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "__bit_reference": "cpp"
     }
 }

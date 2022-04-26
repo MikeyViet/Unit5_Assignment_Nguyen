@@ -12,35 +12,75 @@ using namespace std;
  * DataType:    Class
  * Name:        MenuItem
  * Heirarchy:   Base
- * Attributes:  Access -> Protected - cost(double), count(int)
- * Methods:     Access -> Public - MenuItem()x2, setCost(), setCount(),
- *              getCost(), getCount(), ~MenuItem()
+ * Attributes:  Access -> Protected - cost(double)
+ * Methods:     Access -> Public - MenuItem()x2, setCost(), getCost(),
+ *              ~MenuItem()
  *
- * Description: The base class for all the items on the menu. It contains
- *              protected attributes that are only numerical values
+ * Description: The base class for all the items on the menu. It only 
+ *              contains item cost.
  **************************************************************************/
 class MenuItem
 {
 protected:
     double cost; // amount of money item is worth
-    int count;   // a total value of the item
 public:
     // default constructor
-    MenuItem(){cost = 0.0; count = 0;} 
+    MenuItem(){cost = 0.0;} 
     // parameterized constructor
-    MenuItem(double cst, int cnt){cost = cst, count = cnt;}  
+    MenuItem(double cst){cost = cst;}  
     
     //mutators methods
     void setCost(double cst);
-    void setCount(int cnt);
     
     //accessor methods
     double getCost() const;
-    int getCount() const;
-    void showMenu(MenuItem&);
     ~MenuItem(); // destructor for base class
 };
 
+/**************************************************************************
+ * DataType:    Class
+ * Name:        Menu
+ * Heirarchy:   Base
+ * Attributes:  Access -> Private - letter(char), count()
+ * Methods:     Access -> Public - Menu(), setLetter(), setCount(),
+ *              getLetter(), getCount()
+ *               
+ *
+ * Description: The base class for the menu that displays a number of
+ *              items along with details about the item. The menu is
+ *              only responsible for keeping total count of the item,
+ *              total cost of item, and allowing addition or removal 
+ *              of item from menu.
+ **************************************************************************/
+class Menu
+{
+private:
+    char letter;
+    int itemCount;
+    double totalItemCost;
+public:
+    //default constructor
+    Menu(){letter = ' '; itemCount = 0; totalItemCost = 0.0;}
+    //Parameterized constructor
+    Menu(char l, int i, double  ){letter = l; itemCount = i; totalItemCost = 0.0;}
+
+    //mutator methods
+    void setLetter(char);
+    void setItemCount(int);
+    void setTotalCost(double);
+
+    //accessor methods
+    char getLetter()const;
+    int getItemCount()const;
+    
+    //general methods
+    double getTotalItemCost()const;
+    void removeLetter(MenuItem&);
+    void increaseCount(MenuItem&);
+    void decreaseCount(MenuItem&);
+    void displayMenu();
+    void controlMenu(Menu&);
+};
 /**************************************************************************
  * DataType:    Class
  * Name:        Food
@@ -62,7 +102,7 @@ public:
     // default constructor call to base constructor
     Food() : MenuItem(){name = ""; description = ""; heated = true;}
     // parameterized constructor with passes to base class
-    Food(double cst, int cnt, string nm, string desc, bool heat) : MenuItem(cst, cnt){name = nm; description = desc; heated = heat;}
+    Food(double cst, string nm, string desc, bool heat) : MenuItem(cst){name = nm; description = desc; heated = heat;}
 
     //mutator methods
     void setName(string nm);
@@ -96,7 +136,7 @@ public:
     // default constructor call to base constructor
     Drink() : Food(){temp = ""; iced = true;}
     // parameterized constructor with passes to base class
-    Drink(string tmp, bool ice, string nm, string desc, bool heat, double cst, int cnt) : Food(cst, cnt, nm, desc, heat){temp = tmp;iced = ice;}
+    Drink(string tmp, bool ice, string nm, string desc, bool heat, double cst) : Food(cst, nm, desc, heat){temp = tmp;iced = ice;}
     
     //mutator methods
     void setTemp(string tmp);
