@@ -23,11 +23,13 @@ class MenuItem
 {
 protected:
     double cost; // amount of money item is worth
+    string name; // name of the item
+    string description; //details of the item
 public:
     // default constructor
-    MenuItem(){cost = 0.0;} 
+    MenuItem(){cost = 0.0; name = "Item 1"; description = "Good Stuff";} 
     // parameterized constructor
-    MenuItem(double cst){cost = cst;}  
+    MenuItem(double cst, string nm, string desc){cost = cst; name = nm; description = desc;}  
     
     //mutators methods
     void setCost(double cst);
@@ -60,7 +62,7 @@ private:
     double totalItemCost;
 public:
     //default constructor
-    Menu(){letter = ' '; itemCount = 0; totalItemCost = 0.0;}
+    Menu(){letter = 'CHAR'; itemCount = 0; totalItemCost = 0.0;}
     //Parameterized constructor
     Menu(char l, int i, double  ){letter = l; itemCount = i; totalItemCost = 0.0;}
 
@@ -75,11 +77,10 @@ public:
     
     //general methods
     double getTotalItemCost()const;
-    void removeLetter(MenuItem&);
-    void increaseCount(MenuItem&);
-    void decreaseCount(MenuItem&);
+    void increaseCount();
+    void decreaseCount();
     void displayMenu();
-    void controlMenu(Menu&);
+    void controlMenu(MenuItem&);
 };
 /**************************************************************************
  * DataType:    Class
@@ -95,14 +96,12 @@ public:
 class Food : public MenuItem
 {
 protected:
-    string name;        // name of the food
-    string description; // description of the food
     bool heated;        // food required hot or cold (hot = true)
 public:
     // default constructor call to base constructor
-    Food() : MenuItem(){name = ""; description = ""; heated = true;}
+    Food() : MenuItem(){heated = true;}
     // parameterized constructor with passes to base class
-    Food(double cst, string nm, string desc, bool heat) : MenuItem(cst){name = nm; description = desc; heated = heat;}
+    Food(double cst, string nm, string desc, bool heat) : MenuItem(cst, nm, desc){name = nm; description = desc; heated = heat;}
 
     //mutator methods
     void setName(string nm);

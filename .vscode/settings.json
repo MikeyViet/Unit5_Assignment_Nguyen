@@ -16,6 +16,7 @@
     "files.associations": {
         "vector": "cpp",
         "string": "cpp",
-        "__bit_reference": "cpp"
+        "__bit_reference": "cpp",
+        "iomanip": "cpp"
     }
 }

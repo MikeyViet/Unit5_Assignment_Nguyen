@@ -1,58 +1,74 @@
 /**************************************************************************
  * FileName:    Menu_Item_Functions.h
- * Description: Contains all the member function (methods) definitions 
+ * Description: Contains all the member function (methods) definitions
  *              of the Menu and Items
  **************************************************************************/
 #ifndef MENU_ITEM_FUNCTIONS_H
 #define MENU_ITEM_FUNCTIONS_H
 
-#include<iostream>
-#include<string>
-#include"Input_Validation_Extended.h"
-#include"Menu_Item_Classes.h"
+#include <iostream>
+#include <string>
+#include "Input_Validation_Extended.h"
+#include "Menu_Item_Classes.h"
 
 /**************************************************************************
  * CLASS METHOD DEFINITIONS
  * name:        Menu
  * heirarchy:   Base
  **************************************************************************/
-  //mutator methods
-    void Menu::setLetter(char l)
-    {
-       letter = l; 
-    }
-    void Menu::setItemCount(int cnt)
-    {
-        itemCount = cnt;
-    }
-    void Menu::setTotalCost(double cst)
-    {
-       totalItemCost = cst;
-    }
+// mutator methods
+void Menu::setLetter(char l)
+{
+    letter = l;
+}
+void Menu::setItemCount(int cnt)
+{
+    itemCount = cnt;
+}
+void Menu::setTotalCost(double cst)
+{
+    totalItemCost = cst;
+}
 
-    //accessor methods
-    char Menu::getLetter()const
-    {
-        return letter;
-    }
-    int Menu::getItemCount()const
-    {
-        return itemCount;
-    }
+// accessor methods
+char Menu::getLetter() const
+{
+    return letter;
+}
+int Menu::getItemCount() const
+{
+    return itemCount;
+}
 
-    //general methods
-    double Menu::getTotalItemCost()const
+// general methods
+double Menu::getTotalItemCost() const
+{
+    return totalItemCost;
+}
+void Menu::increaseCount()
+{
+    itemCount++;
+}
+void Menu::decreaseCount()
+{
+    itemCount--;
+}
+void Menu::displayMenu()
+{
+}
+void Menu::controlMenu(MenuItem &menuObj)
+{
     {
-        return totalItemCost;
+        cout << fixed << setprecision(2); // set doubles to 2 decimal places
+        cout << "This is DrT's Efficient Menu to Imitate" << endl;
+        cout << "ADD  \tNAME \t COST \tREMOVE\tCOUNT\tDESC" << endl;
+        cout << letter << ")" << setw(10) << setw(5) << 
+                "$" << totalItemCost << setw(5) << "(" << "char" << 
+                ")" << setw(7) << itemCount << setw(13) << 
+                menuObj.description << endl;
+        }
     }
-    void Menu::increaseCount(MenuItem& itemObj)
-    {
-        
-    }
-/*     void Menu::decreaseCount(MenuItem&);
-    void Menu::displayMenu();
-    void Menu::controlMenu(Menu&); */
-
+}
 
 /**************************************************************************
  * CLASS METHOD DEFINITIONS
@@ -120,4 +136,4 @@ bool Drink::getIced() const
     return iced;
 }
 
-#endif 
+#endif
