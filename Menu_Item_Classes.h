@@ -25,32 +25,19 @@ protected:
     double cost; // amount of money item is worth
     int count;   // a total value of the item
 public:
-    MenuItem() // dafault constructor
-    {
-        cost = 0.0;
-        count = 0;
-    }
-    MenuItem(double cst, int cnt) // parameterized constructor
-    {
-        cost = cst;
-        count = cnt;
-    }
-    void setCost(double cst)
-    {
-        cost = cst;
-    }
-    void setCount(int cnt)
-    {
-        count = cnt;
-    }
-    double getCost() const
-    {
-        return cost;
-    }
-    int getCount() const
-    {
-        return count;
-    }
+    // default constructor
+    MenuItem(){cost = 0.0; count = 0;} 
+    // parameterized constructor
+    MenuItem(double cst, int cnt){cost = cst, count = cnt;}  
+    
+    //mutators methods
+    void setCost(double cst);
+    void setCount(int cnt);
+    
+    //accessor methods
+    double getCost() const;
+    int getCount() const;
+    void showMenu(MenuItem&);
     ~MenuItem(); // destructor for base class
 };
 
@@ -73,43 +60,19 @@ protected:
     bool heated;        // food required hot or cold (hot = true)
 public:
     // default constructor call to base constructor
-    Food() : MenuItem()
-    {
-        name = "";
-        description = "";
-        heated = true;
-    }
+    Food() : MenuItem(){name = ""; description = ""; heated = true;}
     // parameterized constructor with passes to base class
-    Food(double cst, int cnt, string nm, string desc, bool heat) : MenuItem(cst, cnt)
-    {
-        name = nm;
-        description = desc;
-        heated = heat;
-    }
-    void setName(string nm)
-    {
-        name = nm;
-    }
-    void setDescription(string desc)
-    {
-        description = desc;
-    }
-    void setHeated(bool heat)
-    {
-        heated = heat;
-    }
-    string getName() const
-    {
-        return name;
-    }
-    string getDescription() const
-    {
-        return description;
-    }
-    bool getHeated() const
-    {
-        return heated;
-    }
+    Food(double cst, int cnt, string nm, string desc, bool heat) : MenuItem(cst, cnt){name = nm; description = desc; heated = heat;}
+
+    //mutator methods
+    void setName(string nm);
+    void setDescription(string desc);
+    void setHeated(bool heat);
+
+    //accessor methods
+    string getName() const;
+    string getDescription() const;
+    bool getHeated() const;
     ~Food(); // destructor for derived class
 };
 
@@ -131,33 +94,17 @@ protected:
     bool iced;   // Does drink need ice? (yes = true)
 public:
     // default constructor call to base constructor
-    Drink() : Food()
-    {
-        temp = "";
-        iced = true;
-    }
+    Drink() : Food(){temp = ""; iced = true;}
     // parameterized constructor with passes to base class
-    Drink(string tmp, bool ice, string nm, string desc, bool heat, double cst, int cnt) : Food(cst, cnt, nm, desc, heat)
-    {
-        temp = tmp;
-        iced = ice;
-    }
-    void setTemp(string tmp)
-    {
-        temp = tmp;
-    }
-    void setIced(bool ice)
-    {
-        iced = ice;
-    }
-    string getTemp() const
-    {
-        return temp;
-    }
-    bool getIced() const
-    {
-        return iced;
-    }
+    Drink(string tmp, bool ice, string nm, string desc, bool heat, double cst, int cnt) : Food(cst, cnt, nm, desc, heat){temp = tmp;iced = ice;}
+    
+    //mutator methods
+    void setTemp(string tmp);
+    void setIced(bool ice);
+
+    //accessor methods
+    string getTemp() const;
+    bool getIced() const;
     ~Drink(); // destructor for derived class
 };
 
