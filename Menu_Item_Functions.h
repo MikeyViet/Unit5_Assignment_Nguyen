@@ -3,19 +3,26 @@
  * Description: Contains all the member function (methods) definitions
  *              of the Menu and Items
  **************************************************************************/
-// #ifndef MENU_ITEM_FUNCTIONS_H
-// #define MENU_ITEM_FUNCTIONS_H
+#ifndef MENU_ITEM_FUNCTIONS_H
+#define MENU_ITEM_FUNCTIONS_H
 
-// #include <iostream>
-// #include <string>
-// #include "Input_Validation_Extended.h"
-// #include "Menu_Item_Classes.h"
+#include "Input_Validation_Extended.h"
+#include "Menu_Item_Classes.h"
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <vector>
 
-// /**************************************************************************
-//  * CLASS METHOD DEFINITIONS
-//  * name:        Menu
-//  * heirarchy:   Base
-//  **************************************************************************/
+using namespace std;
+
+
+
+
+/**************************************************************************
+ * CLASS METHOD DEFINITIONS
+ * name:        Menu
+ * heirarchy:   Base
+ **************************************************************************/
 // // mutator methods
 
 // void Menu::setLetter(char l)
@@ -56,27 +63,26 @@
 // }
 // void Menu::displayMenu()
 // {
-    
+
 // }
 // void Menu::controlMenu(MenuItem &menuObj)
 // {
-    
+
 //         cout << fixed << setprecision(2); // set doubles to 2 decimal places
 //         cout << "This is DrT's Efficient Menu to Imitate" << endl;
 //         cout << "ADD  \tNAME \t COST \tREMOVE\tCOUNT\tDESC" << endl;
-// /*         cout << letter << ")" << setw(10) << setw(5) << 
-//                 "$" << totalItemCost << setw(5) << "(" << "char" << 
-//                 ")" << setw(7) << itemCount << setw(13) << 
+// /*         cout << letter << ")" << setw(10) << setw(5) <<
+//                 "$" << totalItemCost << setw(5) << "(" << "char" <<
+//                 ")" << setw(7) << itemCount << setw(13) <<
 //                 menuObj.description << endl; */
-        
-    
+
 // }
 
-// /**************************************************************************
-//  * CLASS METHOD DEFINITIONS
-//  * name:        MenuItem
-//  * heirarchy:   Derived from MenuItem
-//  **************************************************************************/
+/**************************************************************************
+ * CLASS METHOD DEFINITIONS
+ * name:        MenuItem
+ * heirarchy:   Derived from MenuItem
+ **************************************************************************/
 // void MenuItem::setCost(double cst)
 // {
 //     cost = cst;
@@ -86,11 +92,11 @@
 //     return cost;
 // }
 
-// /**************************************************************************
-//  * CLASS METHOD DEFINITIONS
-//  * name:        Food
-//  * heirarchy:   Derived from MenuItem
-//  **************************************************************************/
+/**************************************************************************
+ * CLASS METHOD DEFINITIONS
+ * name:        Food
+ * heirarchy:   Derived from MenuItem
+ **************************************************************************/
 // void Food::setName(string nm)
 // {
 //     name = nm;
@@ -116,11 +122,11 @@
 //     return heated;
 // }
 
-// /**************************************************************************
-//  * CLASS METHOD DEFINITIONS
-//  * name:        Drink
-//  * heirarchy:   Derived from Food
-//  **************************************************************************/
+/**************************************************************************
+ * CLASS METHOD DEFINITIONS
+ * name:        Drink
+ * heirarchy:   Derived from Food
+ **************************************************************************/
 // void Drink::setTemp(string tmp)
 // {
 //     temp = tmp;
@@ -138,4 +144,9 @@
 //     return iced;
 // }
 
-// #endif
+
+
+
+    
+
+#endif

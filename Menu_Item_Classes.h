@@ -5,41 +5,88 @@
 #ifndef MENU_ITEM_CLASSES_H
 #define MENU_ITEM_CLASSES_H
 
-#include "Menu_Item_Functions.h"
+#include <iostream>
 #include <string>
+#include <iomanip>
+
+#include "Menu_Item_Functions.h"
 
 using namespace std;
 
 /**************************************************************************
  * DataType:    Class
- * Name:        MenuItem
+ * Name:        Item
  * Heirarchy:   Base
- * Attributes:  Access -> Protected - cost(double)
- * Methods:     Access -> Public - MenuItem()x2, setCost(), getCost(),
- *              
+ * Attributes:  Access -> Protected - name(string), description(string),
+ *              cost(double)
+ * Methods:     Access -> Public - Item()x2, setName(string), 
+ *              setDescription(string), setCost(double), getName(), 
+ *              getDescription(), getCost()
  *
- * Description: The base class for all the items on the menu. It only 
- *              contains item cost.
+ * Description: The base class for all the items in inventory.  
  **************************************************************************/
-class MenuItem
+class Item
 {
 protected:
-    double cost; // amount of money item is worth
     string name; // name of the item
     string description; //details of the item
+    double cost; // amount of money item is worth
+
 public:
     // default constructor
-    MenuItem(){cost = 0.0; name = "Item 1"; description = "Good Stuff";} 
+    Item(){name = "Item 1"; description = "Good Stuff"; cost = 0.0;} 
     // parameterized constructor
-    MenuItem(double cst, string nm, string desc){cost = cst; name = nm; description = desc;}  
+    Item(string nm, string desc, double cst){name = nm; description = desc; cost = cst;}  
     
     //mutators methods
-    void setCost(double cst);
+    void setName(string);
+    void setDescription(string);
+    void setCost(double);
     
     //accessor methods
+    string getName()const;
+    string getDescription()const;
     double getCost() const;
-    
+
 };
+
+/**************************************************************************
+ * datatype:    class
+ * name:        Snack
+ * heirarchy:   derived from Item
+ * attributes:  access -> private - typeOfSnack(str), tempOfSnack(bool),
+ *                  iced(bool)
+ * methods:     access -> public - snacks()x2, setTypeOfSnack(str),
+ *              setTempOfSnack(bool), setIced(bool) 
+ *
+ * description: This class is for snacks like food and drinks. Each snack
+ *              is can be ordered to be at any temperature and drinks have
+ *              the option of coming with ice or not.
+ **************************************************************************/
+class Snacks : public Item
+{
+private:
+    string typeOfSnack; //food or drink
+    bool tempOfSnack;   //hot or cold (hot = true)
+    bool iced;          //Does drink or food (hot soup) need ice
+public:
+    Snacks() : Item(){typeOfSnack = "Food / Beverage", tempOfSnack = true, iced = false;}
+    Snacks(string type, bool temp, bool ice,  double cst, string nm, string desc) : Item(nm, desc, cst){
+        typeOfSnack = type;
+        tempOfSnack = temp;
+        iced = ice;
+    }
+
+    //mutator methods
+    void setTypeOfSnack(string);
+    void setTempOfSnack(bool);
+    void setIced(bool);
+
+    //accessor methods
+    string getTypeOfSnack()const;
+    bool getTempOfSnack()const;
+    bool getIced()const;
+}; 
 
 /**************************************************************************
  * DataType:    Class
@@ -82,74 +129,9 @@ public:
     void increaseCount();
     void decreaseCount();
     void displayMenu();
-    void controlMenu(MenuItem&);
+    void controlMenu(Item*);
   //  
 };
-/**************************************************************************
- * DataType:    Class
- * Name:        Food
- * Heirarchy:   Derived from MenuItem
- * Attributes:  Access -> Protected - name(string), description(string)
- * Methods:     Access -> Public - Food()x2, setName(), setDescription(),
- *              getName(), getDescription(), 
- *
- * Description: This class holds the name and description of the Item that
- *              a person can eat.
- **************************************************************************/
-class Food : public MenuItem
-{
-protected:
-    bool heated;        // food required hot or cold (hot = true)
-public:
-    // default constructor call to base constructor
-    Food() : MenuItem(){heated = true;}
-    // parameterized constructor with passes to base class
-    Food(double cst, string nm, string desc, bool heat) : MenuItem(cst, nm, desc){name = nm; description = desc; heated = heat;}
-
-    //mutator methods
-    void setName(string nm);
-    void setDescription(string desc);
-    void setHeated(bool heat);
-
-    //accessor methods
-    string getName() const;
-    string getDescription() const;
-    bool getHeated() const;
-    
-};
-
-/**************************************************************************
- * DataType:    Class
- * Name:        Drink
- * Heirarchy:   Derived from Food
- * Attributes:  Access -> Protected - temp(string), ice(bool)
- * Methods:     Access -> Public - Drink()x2, setTemp(), setIced(),
- *              getTemp(), getIced(), 
- *
- * Description: This class holds the temperature (hot, cold, warm) and if
- *              the drinkable item needs to have ice or without.
- **************************************************************************/
-class Drink : public Food
-{
-protected:
-    string temp; // hold the state of the drink (warm, hot, or cold)
-    bool iced;   // Does drink need ice? (yes = true)
-public:
-    // default constructor call to base constructor
-    Drink() : Food(){temp = ""; iced = true;}
-    // parameterized constructor with passes to base class
-    Drink(string tmp, bool ice, string nm, string desc, bool heat, double cst) : Food(cst, nm, desc, heat){temp = tmp;iced = ice;}
-    
-    //mutator methods
-    void setTemp(string tmp);
-    void setIced(bool ice);
-
-    //accessor methods
-    string getTemp() const;
-    bool getIced() const;
-    
-};
-
 
 /**************************************************************************
  * CLASS METHOD DEFINITIONS
@@ -170,7 +152,6 @@ void Menu::setTotalCost(double cst)
 {
     totalItemCost = cst;
 }
-
 // accessor methods
 char Menu::getLetter() const
 {
@@ -180,7 +161,6 @@ int Menu::getItemCount() const
 {
     return itemCount;
 }
-
 // general methods
 double Menu::getTotalItemCost() const
 {
@@ -198,7 +178,7 @@ void Menu::displayMenu()
 {
     
 }
-void Menu::controlMenu(MenuItem &menuObj)
+void Menu::controlMenu(Item *menuObj)
 {
     
         cout << fixed << setprecision(2); // set doubles to 2 decimal places
@@ -214,66 +194,56 @@ void Menu::controlMenu(MenuItem &menuObj)
 
 /**************************************************************************
  * CLASS METHOD DEFINITIONS
- * name:        MenuItem
- * heirarchy:   Derived from MenuItem
+ * name:        Item
+ * heirarchy:   Base
  **************************************************************************/
-void MenuItem::setCost(double cst)
+//mutator methods
+void Item::setName(string nm)
+{
+    name = nm;
+}
+void Item::setDescription(string desc)
+{
+    description = desc;
+}
+void Item::setCost(double cst)
 {
     cost = cst;
 }
-double MenuItem::getCost() const
+//accessor methods
+string Item::getName() const
+{
+    return name;
+}
+string Item::getDescription() const
+{
+    return description;
+}
+double Item::getCost() const
 {
     return cost;
 }
 
 /**************************************************************************
  * CLASS METHOD DEFINITIONS
- * name:        Food
- * heirarchy:   Derived from MenuItem
+ * name:        Snack
+ * heirarchy:   Derived from Item
  **************************************************************************/
-void Food::setName(string nm)
+//mutator methods
+void Snacks::setTempOfSnack(bool tmp)
 {
-    name = nm;
+    tempOfSnack = tmp;
 }
-void Food::setDescription(string desc)
-{
-    description = desc;
-}
-void Food::setHeated(bool heat)
-{
-    heated = heat;
-}
-string Food::getName() const
-{
-    return name;
-}
-string Food::getDescription() const
-{
-    return description;
-}
-bool Food::getHeated() const
-{
-    return heated;
-}
-
-/**************************************************************************
- * CLASS METHOD DEFINITIONS
- * name:        Drink
- * heirarchy:   Derived from Food
- **************************************************************************/
-void Drink::setTemp(string tmp)
-{
-    temp = tmp;
-}
-void Drink::setIced(bool ice)
+void Snacks::setIced(bool ice)
 {
     iced = ice;
 }
-string Drink::getTemp() const
+//accessor methods
+bool Snacks::getTempOfSnack() const
 {
-    return temp;
+    return tempOfSnack;
 }
-bool Drink::getIced() const
+bool Snacks::getIced() const
 {
     return iced;
 }
