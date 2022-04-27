@@ -42,6 +42,7 @@ public:
         name = "Item";
         description = "Good Stuff";
         totalCost = 0.0;
+        itemCount = 0;
     }
     // parameterized constructor
     Item(string nm, string desc, double cst, int cnt)
