@@ -31,9 +31,9 @@ int main()
   displayMenu(snackList, downLetters);
 
   //display messate to confirm program runs.
-  // cout << "\nProgram is working at the moment!\n";
+  cout << "\nProgram is working at the moment!\n";
 
-  // controlOrderMenu(snackList, downLetters);
+  controlOrderMenu(snackList, downLetters);
 
   return 0;
 }
