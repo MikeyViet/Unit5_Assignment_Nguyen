@@ -129,7 +129,7 @@ public:
     void increaseCount();
     void decreaseCount();
     void displayMenu();
-    void controlMenu(Item*);
+    void controlMenu(Item&);
   //  
 };
 
@@ -178,16 +178,16 @@ void Menu::displayMenu()
 {
     
 }
-void Menu::controlMenu(Item *menuObj)
+void Menu::controlMenu(Item &menuObj)
 {
     
-        cout << fixed << setprecision(2); // set doubles to 2 decimal places
+        cout << fixed << setw(40) << setprecision(2); // set doubles to 2 decimal places
         cout << "This is DrT's Efficient Menu to Imitate" << endl;
         cout << "ADD  \tNAME \t COST \tREMOVE\tCOUNT\tDESC" << endl;
-/*         cout << letter << ")" << setw(10) << setw(5) << 
+        cout << letter << ")" << setw(10) << setw(5) << 
                 "$" << totalItemCost << setw(5) << "(" << "char" << 
                 ")" << setw(7) << itemCount << setw(13) << 
-                menuObj.description << endl; */
+                menuObj.getDescription() << endl; 
         
     
 }

@@ -8,20 +8,17 @@
 
 using namespace std;
 
-void loadMenuItems(Item*);
+void loadMenuItems(Snacks&);
 
 int main()
 
 {   
-  Item menuItemObj;
+  Menu menuObj;
+  Snacks snacksObj;
 
-  Item *mItemObjPtr;
+  loadMenuItems(snacksObj);
 
-  mItemObjPtr = &menuItemObj;
-
-  loadMenuItems(mItemObjPtr);
-
-
+  menuObj.controlMenu(snacksObj);
 
   cout << "Program is working at the moment!\n";
   return 0;
@@ -30,20 +27,25 @@ int main()
 //Function Definitions
 
 /******************************************************************
- * Name:        loadMenuItems(MenuItem*)
+ * Name:        loadMenuItems()
  *
  * Parameters:
- *      Input:  Pointer to an object(MenuItem)
+ *      Input:  Address of Item Object
  *      Output: none
  *
- * Description: The function accepts a pointer to an object of type
- *      MenuItem in order to populate the items with values that
+ * Description: The function accepts an address to an object of type
+ *      Item in order to populate the items with values that
  *      have been loaded into vectors.
  ******************************************************************/
-void loadMenuItems(Item *mItemPtr)
+void loadMenuItems(Snacks &tempSnacksObj)
 {
+  Snacks *snacksObjPtr;
   
+  snacksObjPtr = tempSnacksObj;
+
+  snacksObjPtr->getName();
   
+  for (Snacks yummies : tempObj)
     // Load values of the items that will be on menu into vectors to populate the objects
     vector<string> items {"Burrito", "Hamburger", "Chocolate Sundae", "Apple Pie", "Chicken Sandwich", "Green Tea", "Coke", "Coffee", "Water", "Orange Juice"};
     vector<string> details{"Authentic Mexican", "1/2 Lb Angus", "Hot Fudge", "Home Made", "Organic Chicken Breast", "Refreshing", "Original Glass Bottles", "FIJI", "Lemon-lime"};
