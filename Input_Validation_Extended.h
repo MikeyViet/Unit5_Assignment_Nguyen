@@ -89,15 +89,13 @@ char validateChar(char &charInput)
 {
     while (true)
     {
-        cout << "Enter a single letter or number (1 digit): ";
-
         try
         {
             charInput = getValidatedInput<char>();
         }
         catch (exception e)
         {
-            cerr << e.what() << ": Invalid input." << endl;
+            cerr << e.what() << "\nInvalid input: Please enter a letter between A(a) and J(j).\n";
             continue;
         }
 
