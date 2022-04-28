@@ -8,10 +8,13 @@
 
 #include "Input_Validation_Extended.h"
 #include "Menu_Item_Classes.h"
-#include <iostream>
+#include <stdio.h>
+#include <fstream>
+#include <iostream> 
 #include <string>
 #include <iomanip>
 #include <vector>
+#define SIZE 10 //size of our vector for items
 
 using namespace std;
 
@@ -111,41 +114,114 @@ bool Snacks::getIced() const
  *      Output: none
  *
  * Description: The function accepts an address to a vector of
- *      Snacks objects. The vector will be loaded with 10 Snack
- *      objects. 4 vectors with details for the Snacks object will
- *      be loaded into vectors in order to load them all into each
- *      Snack object in the vector.
+ *      Snacks objects. A text file containing the details of the
+ *      Snacks object wil be opened to load all the data in the the
+ *      Snacks vector.
  ******************************************************************/
 void loadMenuItems(vector<Snacks> &tmpSnkList)
 {
+
     // create vector pointer to point to the address of the vector of
     //   snacks objects
     vector<Snacks> *snkPtr = &tmpSnkList;
-
+    vector<string> items;
+    vector<string> description;
+    vector<double> cost;
+    vector<char> addCartLetter;
+    vector<char> removeCartLetter;
+    
+    // defining variables for each input data type
+    string inName;
+    string inDesc;
+    double inNumber;
+    char inCart;
+    char outCart;
+    
     // loop to fill the vector with Snacks objects. A temp snack object
     //   will be created and loaded into vector each loop. The Snacks
     //   object should be repeated created and replaced.
     for (int i = 1; i <= SIZE; i++)
     {
-        Snacks temp;             // instantiate a temporary snack object
-        snkPtr->push_back(temp); // push the temp snack object to vector
+        Snacks tempSnacks;             // instantiate a temporary snack object
+        snkPtr->push_back(tempSnacks); // push the temp snack object to vector
     }
-
-    // Load values of the items that will be on menu into vectors to populate the objects
-    vector<string> items{"Burrito", "Hamburger", "Chocolate Sundae", "Apple Pie", "Chicken Sandwich", "Green Tea", "Coke", "Coffee", "Water", "Orange Juice"};
-    vector<string> details{"Authentic Mexican", "1/2 Lb Angus", "Hot Fudge", "Home Made", "Organic Chicken Breast", "Refreshing", "Original Glass Bottles", "Columbian", "FIJI", "Freshly Squeezed"};
-    vector<double> prices{5.00, 7.50, 3.50, 3.00, 9.50, 2.50, 1.00, .75, 3.00, 2.50};
-    vector<string> type{"Breakfast", "Lunch", "Ice Cream", "Bakery", "Lunch", "Tea", "Soda", "Coffee", "Water", "Juice"};
-
+    
     // Load details of the Snacks object in the vector
-    for (int i = 0; i < SIZE; i++)
+    fstream dataFile;
+
+    dataFile.open("snacksInfo.txt", ios::in);
+
+    vector<string> *itemsPtr = &items;
+    vector<string> *descPtr = &description;
+    vector<double> *costPtr = &cost;
+    vector<char> *addPtr = &addCartLetter;
+    vector<char> *remPtr = &removeCartLetter;
+
+    if (!dataFile.is_open())
+    perror("Couldn't open file");
+    while (!dataFile.eof())
     {
+        while (!dataFile.eof())
+        {
+            for (int i = 0; i < SIZE; i++)
+            {
+                getline(dataFile,inName);
+                itemsPtr[i].push_back(inName);
+            }
+            for (int j = 0; j < SIZE; j++)
+            {
+                getline(dataFile,inDesc);
+                descPtr[j].push_back(inDesc);
+            }
+            for(int k = 0; k < SIZE; k++)
+            {
+                costPtr[k].push_back(inNumber);
+            }
+            for(int l = 0; l < SIZE; l++)
+            {
+                inCart = fgetc(dataFile);
+                addPtr[l].push_back(inCart);
+            }    
+            for(int m = 0; m < SIZE; m++) 
+            {
+                outCart = getc(dataFile);
+                remPtr[m].push_back(outCart);
+                
+            }
+                                
+        }// end while (!dataFile.eof())
+
+    }// while (!dataFile.eof())
+    if(dataFile.bad())
+    perror("There was an error when trying to read the file");
+    dataFile.close();
+
+    for(int i = 0; i < SIZE; i++)
+    {   
         tmpSnkList[i].setName(items[i]);
-        tmpSnkList[i].setDescription(details[i]);
-        tmpSnkList[i].setCost(prices[i]);
-        tmpSnkList[i].setTypeOfSnack(type[i]);
     }
+    for(int i = 0; i < SIZE; i++)
+    {
+        tmpSnkList[i].setDescription(description[i]);
+    }
+    for(int i = 0; i < SIZE; i++)            
+    {
+        tmpSnkList[i].setCost(cost[i]);
+    }
+    for(int i = 0; i < SIZE; i++)
+    {
+        tmpSnkList[i].setAddCartLetter(addCartLetter[i]);
+    }
+    for(int i = 0; i < SIZE; i++)
+    {
+        tmpSnkList[i].setRemoveCartLetter(removeCartLetter[i]);
+    }
+    
+
 }
+
+#define NO_CONTROLLER_0 
+#ifdef NO_CONTROLLER
 
 void displayMenu(vector<Snacks> &tmpSnkList, vector<char> &letters)
 {
@@ -251,10 +327,14 @@ void controlOrderMenu(vector<Snacks> &snackList, vector<char> &letters)
                 // End for(t i = 0; i < snackList.size(); i++)
 
                 system("pause");
-            }
             while (toupper(choice) != 'X')
                 ;
         }
         cout << "Thank you for shopping with us. Have a nice day!!" << endl;
     }
+}    
+
+#endif  //NO_CONTROL 
 #endif
+//≤
+

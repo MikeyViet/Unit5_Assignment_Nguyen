@@ -1,7 +1,7 @@
 {
     "C_Cpp.autocompleteAddParentheses": true,
     "editor.autoClosingBrackets": "always",
-    "editor.lineNumbers": "relative",
+    "editor.lineNumbers": "on",
     "editor.wordWrap": "on",
     "editor.wrappingIndent": "indent",
     "editor.cursorBlinking": "smooth",
@@ -19,5 +19,7 @@
         "__bit_reference": "cpp",
         "iomanip": "cpp",
         "iostream": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled",
+    "tabnine.debug": true
 }

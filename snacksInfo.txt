@@ -1,0 +1,60 @@
+Burrito
+Hamburger
+Chocolate Sundae
+Apple Pie
+Chicken Sandwich
+Green Tea
+Coffee
+Orange Juice
+Coke
+Water
+Authentic Mexican
+1/2 Lb Angus
+Hot Fudge
+Home Made
+Organic Chicken Breast
+Refreshing
+In Glass Bottles
+Columbian
+FiJI
+Freshly Squeezed
+5.00
+7.50
+3.50
+3.00
+9.50
+2.50
+1.00
+0.75
+3.00
+4.50
+Breakfast
+Lunch
+Ice Cream
+Bakery
+Lunch
+Tea
+Soda
+Coffee
+Water
+Juice
+A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+a
+b
+c
+d
+e
+f
+g
+h
+i
+j

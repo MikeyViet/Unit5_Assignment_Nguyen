@@ -13,18 +13,16 @@
 
 using namespace std;
 
-#define SIZE 10 // size of our vector for items
-
 /**************************************************************************
  * DataType:    Class
  * Name:        Item
  * Heirarchy:   Base
  * Attributes:  Access -> Protected - name(string), description(string),
- *              cost(double)
+ *              cost(double), addCartLetter(char), removeCartLetter(char)
  * Methods:     Access -> Public - Item()x2, setName(string),
  *              setDescription(string), setCost(double), getName(),
- *              getDescription(), getCost()
- *
+ *              getDescription(), getCost(), getAddCartLetter(),
+ *              getRemoveCartLetter()
  * Description: The base class for all the items in inventory.
  **************************************************************************/
 class Item
@@ -34,6 +32,8 @@ protected:
     string description; // details of the item
     double totalCost;
     int itemCount;
+    char addCartLetter; // holds option that is capital letter
+    char removeCartLetter; // holds option that is lower letter
 
 public:
     // default constructor
@@ -43,14 +43,18 @@ public:
         description = "Good Stuff";
         totalCost = 0.0;
         itemCount = 0;
+        addCartLetter = '\0';
+        removeCartLetter = '\0';
     }
     // parameterized constructor
-    Item(string nm, string desc, double cst, int cnt)
+    Item(string nm, string desc, double cst, int cnt, char add, char rem)
     {
         name = nm;
         description = desc;
         totalCost = cst;
         itemCount = cnt;
+        addCartLetter = add;
+        removeCartLetter = rem;
     }
 
     // mutators methods
@@ -59,12 +63,16 @@ public:
     void setCost(double);
     void setItemCount(int);
     void setTotalCost(double);
+    void setAddCartLetter(char);
+    void setRemoveCartLetter(char);
 
     // accessor methods
     string getName() const;
     string getDescription() const;
     double getCost() const;
     int getItemCount() const;
+    char getAddCartLetter() const;
+    char getRemoveCartLetter() const;
 
     // general methods
     double getTotalItemCost() const;
@@ -87,13 +95,13 @@ public:
  **************************************************************************/
 class Snacks : public Item
 {
-private:
+protected:
     string typeOfSnack; // food or drink
     bool tempOfSnack;   // hot or cold (hot = true)
     bool iced;          // Does drink or food (hot soup) need ice
 public:
     Snacks() : Item() { typeOfSnack = "Food / Beverage", tempOfSnack = true, iced = false; }
-    Snacks(string type, bool temp, bool ice, string nm, string desc, double cst, int cnt) : Item(nm, desc, cst, cnt)
+    Snacks(string type, bool temp, bool ice, string nm, string desc, double cst, int cnt, char add, char rem) : Item(nm, desc, cst, cnt, add, rem)
     {
         typeOfSnack = type;
         tempOfSnack = temp;
@@ -111,6 +119,5 @@ public:
     bool getIced() const;
 };
 
-
-
 #endif
+
