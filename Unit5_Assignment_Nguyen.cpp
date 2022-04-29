@@ -44,8 +44,8 @@ int main()
   {
     cout << snackList[i].getAddCartLetter() << endl;
   }
-  displayMenu(snackList, downLetters);
-  controlOrderMenu(snackList, downLetters);
+  displayMenu(snackList);
+  controlOrderMenu(snackList);
 
   return 0;
 }

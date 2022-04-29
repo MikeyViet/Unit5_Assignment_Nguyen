@@ -273,7 +273,7 @@ void loadMenuItems(vector<Snacks> &tmpSnkList)
 #define NO_CONTROLLER
 #ifdef NO_CONTROLLER
 
-void displayMenu(vector<Snacks> &tmpSnkList, vector<char> &letters)
+void displayMenu(vector<Snacks> &tmpSnkList)
 {
     cout << fixed << setprecision(2); // set doubles to 2 decimal
     cout << "\nThis is the what Michael Ripped-Off from DrT's Efficient Menu to Imitate\n"
@@ -281,11 +281,11 @@ void displayMenu(vector<Snacks> &tmpSnkList, vector<char> &letters)
     cout << "ADD  \tNAME \t\t  COST \t    REMOVE    COUNT\t---DESCRIPTION---" << endl;
     for (int i = 0; i < SIZE; i++)
     {
-        cout << static_cast<char>(toupper(letters[i])) << ")";
+        cout << tmpSnkList[i].getAddCartLetter() << ")";
         cout << "      " << left << setw(16) << tmpSnkList[i].getName();
         cout << "  "
              << "$" << tmpSnkList[i].getCost() << setw(7);
-        cout << right << "(" << letters[i] << ")" << left << setw(7) << right << "  ";
+        cout << right << "(" << tmpSnkList[i].getRemoveCartLetter() << ")" << left << setw(7) << right << "  ";
         cout << left << setw(2) << setfill('0') << tmpSnkList[i].getItemCount();
         cout << left << "\t" << setw(10) << setfill(' ') << tmpSnkList[i].getDescription() << endl;
     }
@@ -303,7 +303,7 @@ void displayMenu(vector<Snacks> &tmpSnkList, vector<char> &letters)
  *      updateing the total of snacks and total dollar amount
  *      accordingly
  ******************************************************************/
-void controlOrderMenu(vector<Snacks> &snackList, vector<char> &letters)
+void controlOrderMenu(vector<Snacks> &snackList)
 {
     char choice = '\0'; // menu option chosen by user;
     double subTotal = 0.0;
@@ -331,15 +331,13 @@ void controlOrderMenu(vector<Snacks> &snackList, vector<char> &letters)
 
         for (int i = 0; i < snackList.size(); i++)
         {
-            // check if choice is capital letter by converting char to integer and testing
-            //   it to see if it is between 65(A) and 74(J)
             if ((int(choice) >= 65) && (int(choice) <= 74))
             {
                 snackList[i].increaseCount();
                 // set total cost from cost of item multiplied by count
                 snackList[i].setTotalCost((snackList[i].getCost() + snackList[i].getTotalItemCost()));
                 subTotal += snackList[i].getCost();
-                displayMenu(snackList, letters);
+                displayMenu(snackList);
                 cout << "\tAmount Due\t\n";
                 cout << "\tTotal: " << subTotal;
             } // End if((int(choice) >= 65) && (int(choice) <= 74))
@@ -353,7 +351,7 @@ void controlOrderMenu(vector<Snacks> &snackList, vector<char> &letters)
                     snackList[i].decreaseCount();
                     snackList[i].setTotalCost(snackList[i].getTotalItemCost() - snackList[i].getCost());
                     subTotal -= snackList[i].getCost();
-                    displayMenu(snackList, letters);
+                    displayMenu(snackList);
                     cout << "\tAmount Due\t\n";
                     cout << "\tTotal: " << subTotal;
 
@@ -361,7 +359,7 @@ void controlOrderMenu(vector<Snacks> &snackList, vector<char> &letters)
                 else
                 {
                     snackList[i].getCost();
-                    displayMenu(snackList, letters);
+                    displayMenu(snackList);
                     cout << "\tAmount Due\t\n";
                     cout << "You can't remove item: " << snackList[i].getName() << " because you have " << snackList[i].getItemCount() << " count of that item.\n";
                 }
