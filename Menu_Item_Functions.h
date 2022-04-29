@@ -145,11 +145,12 @@ void loadMenuItems(vector<Snacks> &tmpSnkList)
         Snacks tempSnacks;             // instantiate a temporary snack object
         snkPtr->push_back(tempSnacks); // push the temp snack object to vector
     }
-    
     // Load details of the Snacks object in the vector
-    fstream dataFile;
+    string snacksInfo; // name of text file containing the Snacks Data.
+    snacksInfo = "snacksInfo.txt";
+    ifstream dataFile(snacksInfo.c_str()); // open the file for reading (new way to read)
 
-    dataFile.open("snacksInfo.txt", ios::in);
+    dataFile.open(snacksInfo);
 
     vector<string> *itemsPtr = &items;
     vector<string> *descPtr = &description;
@@ -159,63 +160,73 @@ void loadMenuItems(vector<Snacks> &tmpSnkList)
 
     if (!dataFile.is_open())
     perror("Couldn't open file");
-    while (!dataFile.eof())
-    {
-        while (!dataFile.eof())
+    // while (!dataFile.eof() && counter == 0)
+    // {
+        if(dataFile.is_open())
+        cout << "file was opened successfully" << endl;
+        
+        for (int i = 0; i < SIZE; i++)
         {
-            for (int i = 0; i < SIZE; i++)
-            {
-                getline(dataFile,inName);
-                itemsPtr[i].push_back(inName);
-            }
-            for (int j = 0; j < SIZE; j++)
-            {
-                getline(dataFile,inDesc);
-                descPtr[j].push_back(inDesc);
-            }
-            for(int k = 0; k < SIZE; k++)
-            {
-                costPtr[k].push_back(inNumber);
-            }
-            for(int l = 0; l < SIZE; l++)
-            {
-                inCart = fgetc(dataFile);
-                addPtr[l].push_back(inCart);
-            }    
-            for(int m = 0; m < SIZE; m++) 
-            {
-                outCart = getc(dataFile);
-                remPtr[m].push_back(outCart);
-                
-            }
+            getline(dataFile,inName);
+            itemsPtr->push_back(inName);
+        }
+        for (int j = 0; j < SIZE; j++)
+        {
+            getline(dataFile,inDesc);
+            descPtr->push_back(inDesc);
+        }
+        for(int k = 0; k < SIZE; k++)
+        {
+            costPtr->push_back(inNumber);
+        }
+        // for(int l = 0; l < SIZE; l++)
+        // {
+        //     inCart = dataFile.get(inCart);
+        //     addPtr[l].push_back(inCart);
+        // }    
+        // for(int m = 0; m < SIZE; m++) 
+        // {
+        //     outCart = dataFile.get(outCart);
+        //     remPtr[m].push_back(outCart);
+            
+        // }
                                 
-        }// end while (!dataFile.eof())
 
-    }// while (!dataFile.eof())
+    // }// while (!dataFile.eof())
     if(dataFile.bad())
     perror("There was an error when trying to read the file");
+
     dataFile.close();
 
     for(int i = 0; i < SIZE; i++)
     {   
         tmpSnkList[i].setName(items[i]);
+        if(i % 5 == 0)
+        {
+            cout << "\nValue inside Snacks at index " << tmpSnkList[i].getName() << endl;
+        }
     }
     for(int i = 0; i < SIZE; i++)
     {
         tmpSnkList[i].setDescription(description[i]);
+        if(i % 5 == 0)
+            cout << "\nValue inside Snacks at index " << tmpSnkList[i].getDescription()<< endl;
     }
     for(int i = 0; i < SIZE; i++)            
     {
         tmpSnkList[i].setCost(cost[i]);
-    }
-    for(int i = 0; i < SIZE; i++)
-    {
-        tmpSnkList[i].setAddCartLetter(addCartLetter[i]);
-    }
-    for(int i = 0; i < SIZE; i++)
-    {
-        tmpSnkList[i].setRemoveCartLetter(removeCartLetter[i]);
-    }
+        if(i % 5 == 0)
+        {
+            cout << "\nValue inside Snacks at index " << tmpSnkList[i].getCost() << endl;
+        }
+    // for(int i = 0; i < SIZE; i++)
+    // {
+    //     tmpSnkList[i].setAddCartLetter(addCartLetter[i]);
+    // }
+    // for(int i = 0; i < SIZE; i++)
+    // {
+    //     tmpSnkList[i].setRemoveCartLetter(removeCartLetter[i]);
+     }
     
 
 }
