@@ -1,22 +1,132 @@
 /**************************************************************************
- * FileName:    Menu_Item_Functions.h
- * Description: Contains all the member function (methods) definitions
- *              of the Menu and Items
+ * FileName:    Menu_Item_Classes.h
+ * Description: Contains all the class definitions of the Menu and Items
  **************************************************************************/
 #ifndef MENU_ITEM_FUNCTIONS_H
 #define MENU_ITEM_FUNCTIONS_H
 
 #include "Input_Validation_Extended.h"
-#include "Menu_Item_Classes.h"
-#include <stdio.h>
-#include <fstream>
-#include <iostream> 
+
+#include <iostream>
 #include <string>
 #include <iomanip>
 #include <vector>
-#define SIZE 10 //size of our vector for items
 
 using namespace std;
+
+#define SIZE 10
+
+/**************************************************************************
+ * DataType:    Class
+ * Name:        Item
+ * Heirarchy:   Base
+ * Attributes:  Access -> Protected - name(string), description(string),
+ *              cost(double), addCartLetter(char), removeCartLetter(char)
+ * Methods:     Access -> Public - Item()x2, setName(string),
+ *              setDescription(string), setCost(double), getName(),
+ *              getDescription(), getCost(), getAddCartLetter(),
+ *              getRemoveCartLetter()
+ * Description: The base class for all the items in inventory.
+ **************************************************************************/
+class Item
+{
+protected:
+    string name;        // name of the item
+    string description; // details of the item
+    double totalCost;
+    int itemCount;
+    char addCartLetter;    // holds option that is capital letter
+    char removeCartLetter; // holds option that is lower letter
+
+public:
+    // default constructor
+    Item()
+    {
+        name = "Item";
+        description = "Good Stuff";
+        totalCost = 0.0;
+        itemCount = 0;
+        addCartLetter = '\0';
+        removeCartLetter = '\0';
+    }
+    // parameterized constructor
+    Item(string nm, string desc, double cst, int cnt, char add, char rem)
+    {
+        name = nm;
+        description = desc;
+        totalCost = cst;
+        itemCount = cnt;
+        addCartLetter = add;
+        removeCartLetter = rem;
+    }
+
+    // mutators methods
+    void setName(string);
+    void setDescription(string);
+    void setCost(double);
+    void setItemCount(int);
+    void setTotalCost(double);
+    void setAddCartLetter(char);
+    void setRemoveCartLetter(char);
+
+    // accessor methods
+    string getName() const;
+    string getDescription() const;
+    double getCost() const;
+    int getItemCount() const;
+    char getAddCartLetter() const;
+    char getRemoveCartLetter() const;
+
+    // general methods
+    double getTotalItemCost() const;
+    void increaseCount();
+    void decreaseCount();
+};
+
+/**************************************************************************
+ * datatype:    class
+ * name:        Snack
+ * heirarchy:   derived from Item
+ * attributes:  access -> private - typeOfSnack(str), tempOfSnack(bool),
+ *                  iced(bool)
+ * methods:     access -> public - snacks()x2, setTypeOfSnack(str),
+ *              setTempOfSnack(bool), setIced(bool)
+ *
+ * description: This class is for snacks like food and drinks. Each snack
+ *              is can be ordered to be at any temperature and drinks have
+ *              the option of coming with ice or not.
+ **************************************************************************/
+class Snacks : public Item
+{
+protected:
+    string typeOfSnack; // food or drink
+    bool tempOfSnack;   // hot or cold (hot = true)
+    bool iced;          // Does drink or food (hot soup) need ice
+public:
+    Snacks() : Item() { typeOfSnack = "Food / Beverage", tempOfSnack = true, iced = false; }
+    Snacks(string type, bool temp, bool ice, string nm, string desc, double cst, int cnt, char add, char rem) : Item(nm, desc, cst, cnt, add, rem)
+    {
+        typeOfSnack = type;
+        tempOfSnack = temp;
+        iced = ice;
+    }
+
+    // mutator methods
+    void setTypeOfSnack(string);
+    void setTempOfSnack(bool);
+    void setIced(bool);
+
+    // accessor methods
+    string getTypeOfSnack() const;
+    bool getTempOfSnack() const;
+    bool getIced() const;
+};
+
+/**************************************************************************
+ * FileName:    Menu_Item_Functions.h
+ * Description: Contains all the member function (methods) definitions
+ *              of the Menu and Items
+ **************************************************************************/
 
 /**************************************************************************
  * CLASS METHOD DEFINITIONS
@@ -44,6 +154,14 @@ void Item::setTotalCost(double cst)
 {
     totalCost = cst;
 }
+void Item::setAddCartLetter(char add)
+{
+    addCartLetter = add;
+}
+void Item::setRemoveCartLetter(char rem)
+{
+    removeCartLetter = rem;
+}
 // accessor methods
 string Item::getName() const
 {
@@ -61,6 +179,14 @@ double Item::getCost() const
 int Item::getItemCount() const
 {
     return itemCount;
+}
+char Item::getAddCartLetter() const
+{
+    return addCartLetter;
+}
+char Item::getRemoveCartLetter() const
+{
+    return removeCartLetter;
 }
 // general methods
 double Item::getTotalItemCost() const
@@ -120,118 +246,31 @@ bool Snacks::getIced() const
  ******************************************************************/
 void loadMenuItems(vector<Snacks> &tmpSnkList)
 {
+    Snacks tempSnacksObj;
+    vector<Snacks> *snacksObjPtr = &tmpSnkList;
 
-    // create vector pointer to point to the address of the vector of
-    //   snacks objects
-    vector<Snacks> *snkPtr = &tmpSnkList;
-    vector<string> items;
-    vector<string> description;
-    vector<double> cost;
-    vector<char> addCartLetter;
-    vector<char> removeCartLetter;
-    
-    // defining variables for each input data type
-    string inName;
-    string inDesc;
-    double inNumber;
-    char inCart;
-    char outCart;
-    
-    // loop to fill the vector with Snacks objects. A temp snack object
-    //   will be created and loaded into vector each loop. The Snacks
-    //   object should be repeated created and replaced.
-    for (int i = 1; i <= SIZE; i++)
+    for (int i = 0; i < SIZE; i++)
     {
-        Snacks tempSnacks;             // instantiate a temporary snack object
-        snkPtr->push_back(tempSnacks); // push the temp snack object to vector
+        snacksObjPtr->push_back(tempSnacksObj);
     }
-    // Load details of the Snacks object in the vector
-    string snacksInfo; // name of text file containing the Snacks Data.
-    snacksInfo = "snacksInfo.txt";
-    ifstream dataFile(snacksInfo.c_str()); // open the file for reading (new way to read)
 
-    dataFile.open(snacksInfo);
+    vector<string> items{"Burrito", "Hamburger", "Chocolate Sundae", "Apple Pie", "Chicken Sandwich", "Green Tea", "Coke", "Coffee", "Water", "Orange Juice"};
+    vector<string> details{"Authentic Mexican", "1/2 Lb Angus", "Hot Fudge", "Home Made", "Organic Chicken Breast", "Refreshing", "Original Glass Bottles", "Columbian", "FIJI", "Freshly Squeezed"};
+    vector<double> prices{5.00, 7.50, 3.50, 3.00, 9.50, 2.50, 1.00, .75, 3.00, 2.50};
+    vector<char> defaultAddLetters{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+    vector<char> defaultRemoveLetters{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
 
-    vector<string> *itemsPtr = &items;
-    vector<string> *descPtr = &description;
-    vector<double> *costPtr = &cost;
-    vector<char> *addPtr = &addCartLetter;
-    vector<char> *remPtr = &removeCartLetter;
-
-    if (!dataFile.is_open())
-    perror("Couldn't open file");
-    // while (!dataFile.eof() && counter == 0)
-    // {
-        if(dataFile.is_open())
-        cout << "file was opened successfully" << endl;
-        
-        for (int i = 0; i < SIZE; i++)
-        {
-            getline(dataFile,inName);
-            itemsPtr->push_back(inName);
-        }
-        for (int j = 0; j < SIZE; j++)
-        {
-            getline(dataFile,inDesc);
-            descPtr->push_back(inDesc);
-        }
-        for(int k = 0; k < SIZE; k++)
-        {
-            costPtr->push_back(inNumber);
-        }
-        // for(int l = 0; l < SIZE; l++)
-        // {
-        //     inCart = dataFile.get(inCart);
-        //     addPtr[l].push_back(inCart);
-        // }    
-        // for(int m = 0; m < SIZE; m++) 
-        // {
-        //     outCart = dataFile.get(outCart);
-        //     remPtr[m].push_back(outCart);
-            
-        // }
-                                
-
-    // }// while (!dataFile.eof())
-    if(dataFile.bad())
-    perror("There was an error when trying to read the file");
-
-    dataFile.close();
-
-    for(int i = 0; i < SIZE; i++)
-    {   
+    for (int i = 0; i < SIZE; i++)
+    {
         tmpSnkList[i].setName(items[i]);
-        if(i % 5 == 0)
-        {
-            cout << "\nValue inside Snacks at index " << tmpSnkList[i].getName() << endl;
-        }
+        tmpSnkList[i].setDescription(details[i]);
+        tmpSnkList[i].setCost(prices[i]);
+        tmpSnkList[i].setAddCartLetter(defaultAddLetters[i]);
+        tmpSnkList[i].setRemoveCartLetter(defaultRemoveLetters[i]);
     }
-    for(int i = 0; i < SIZE; i++)
-    {
-        tmpSnkList[i].setDescription(description[i]);
-        if(i % 5 == 0)
-            cout << "\nValue inside Snacks at index " << tmpSnkList[i].getDescription()<< endl;
-    }
-    for(int i = 0; i < SIZE; i++)            
-    {
-        tmpSnkList[i].setCost(cost[i]);
-        if(i % 5 == 0)
-        {
-            cout << "\nValue inside Snacks at index " << tmpSnkList[i].getCost() << endl;
-        }
-    // for(int i = 0; i < SIZE; i++)
-    // {
-    //     tmpSnkList[i].setAddCartLetter(addCartLetter[i]);
-    // }
-    // for(int i = 0; i < SIZE; i++)
-    // {
-    //     tmpSnkList[i].setRemoveCartLetter(removeCartLetter[i]);
-     }
-    
-
 }
 
-#define NO_CONTROLLER_0 
+#define NO_CONTROLLER
 #ifdef NO_CONTROLLER
 
 void displayMenu(vector<Snacks> &tmpSnkList, vector<char> &letters)
@@ -326,26 +365,19 @@ void controlOrderMenu(vector<Snacks> &snackList, vector<char> &letters)
                     cout << "\tAmount Due\t\n";
                     cout << "You can't remove item: " << snackList[i].getName() << " because you have " << snackList[i].getItemCount() << " count of that item.\n";
                 }
-                // End if((int(choice) >= 97) && (int(choice) <= 106))
-                else
-                {
-                    if (toupper(choice) != 'X')
-                    {
-                        choice = validateChar(choice);
-                        cout << "Your selection was invalid.";
-                    }
-                }
-                // End for(t i = 0; i < snackList.size(); i++)
-
-                system("pause");
-            while (toupper(choice) != 'X')
-                ;
+            } // End if((int(choice) >= 97) && (int(choice) <= 106))
+            else if (toupper(choice) != 'X')
+            {
+                choice = validateChar(choice);
+                cout << "Your selection was invalid.";
+            }
         }
-        cout << "Thank you for shopping with us. Have a nice day!!" << endl;
-    }
-}    
 
-#endif  //NO_CONTROL 
+    } while (toupper(choice) != 'X');
+
+            cout
+        << "Thank you for shopping with us. Have a nice day!!" << endl;
+}
+#endif // NO_CONTROL
 #endif
 //≤
-

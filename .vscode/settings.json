@@ -18,7 +18,9 @@
         "string": "cpp",
         "__bit_reference": "cpp",
         "iomanip": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "iosfwd": "cpp",
+        "ostream": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled",
     "tabnine.debug": true
