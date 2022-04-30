@@ -286,9 +286,24 @@ void displayMenu(vector<Snacks> &tmpSnkList)
         cout << "  "
              << "$" << tmpSnkList[i].getCost() << setw(7);
         cout << right << "(" << tmpSnkList[i].getRemoveCartLetter() << ")" << left << setw(7) << right << "  ";
-        cout << left << setw(2) << setfill('0') << tmpSnkList[i].getItemCount();
+        cout << right << setw(2) << setfill('0') << tmpSnkList[i].getItemCount();
         cout << left << "\t" << setw(10) << setfill(' ') << tmpSnkList[i].getDescription() << endl;
     }
+    cout << "\nPlease take a look at the menu to decide what snack(s) you would like to ";
+    cout << "purchase.\n"
+         << endl;
+
+    cout << "*Purchase Instructions*\n";
+    cout << "-----------------------\n";
+    cout << "To make a selection, choose the letter (A/a - J/j) that corresponds with the snack on the Menu.\n";
+    cout << "Once you have confirmed that the item chosen is the correct one, you can enter:\n\n";
+    cout << "Add snack item to cart by entering the capital letter next to your option.\n";
+    cout << "Removed the snack item from your cart by entering the lowercase letter next ";
+    cout << "to the same item.\n\n";
+    cout << "Example: \n"
+         << "      " << right << setw(25) << "(A) - Adding snack to cart." << endl;
+    cout << "      " << right << setw(25) << "(a) - Adding snack to cart.\n"
+         << endl;
 }
 /******************************************************************
  * Name:        controlOrderMenu()
@@ -308,72 +323,70 @@ void controlOrderMenu(vector<Snacks> &snackList)
     char choice = '\0'; // menu option chosen by user;
     double subTotal = 0.0;
 
-    cout << "\nPlease take a look at the menu to decide what snack(s) you would like to ";
-    cout << "purchase.\n"
-         << endl;
+    // cout << "\nPlease take a look at the menu to decide what snack(s) you would like to ";
+    // cout << "purchase.\n"
+    //      << endl;
 
-    cout << "*Purchase Instructions*\n";
-    cout << "-----------------------\n";
-    cout << "To make a selection, choose the letter (A/a - J/j) that corresponds with the snack on the Menu.\n";
-    cout << "Once you have confirmed that the item chosen is the correct one, you can enter:\n\n";
-    cout << "Add snack item to cart by entering the capital letter next to your option.\n";
-    cout << "Removed the snack item from your cart by entering the lowercase letter next ";
-    cout << "to the same item.\n\n";
-    cout << "Example: \n"
-         << "      " << right << setw(25) << "(A) - Adding snack to cart." << endl;
-    cout << "      " << right << setw(25) << "(a) - Adding snack to cart.\n"
-         << endl;
+    // cout << "*Purchase Instructions*\n";
+    // cout << "-----------------------\n";
+    // cout << "To make a selection, choose the letter (A/a - J/j) that corresponds with the snack on the Menu.\n";
+    // cout << "Once you have confirmed that the item chosen is the correct one, you can enter:\n\n";
+    // cout << "Add snack item to cart by entering the capital letter next to your option.\n";
+    // cout << "Removed the snack item from your cart by entering the lowercase letter next ";
+    // cout << "to the same item.\n\n";
+    // cout << "Example: \n"
+    //      << "      " << right << setw(25) << "(A) - Adding snack to cart." << endl;
+    // cout << "      " << right << setw(25) << "(a) - Adding snack to cart.\n"
+    //      << endl;
 
     do
     {
-        cout << "Please make a selection now: ";
+        cout << "\nPlease make a selection now: ";
         cin >> choice;
 
-        for (int i = 0; i < snackList.size(); i++)
+        if ((int(choice) >= 65) && (int(choice) <= 74))
         {
-            if ((int(choice) >= 65) && (int(choice) <= 74))
+            snackList[int(choice) - 65].increaseCount();
+            cout << "\033[2J\033[1;1H"; // clear screen
+            // set total cost from cost of item multiplied by count
+            subTotal += snackList[int(choice) - 65].getCost();
+            displayMenu(snackList);
+            cout << "\t\t\tAmount Due\t\n";
+            cout << "\t\t\tTotal: " << subTotal << endl;
+        } // End if((int(choice) >= 65) && (int(choice) <= 74))
+
+        // check if choice is lowercase letter by converting char to integer and testing
+        //   it to see if it is between 97(a) and 106(j
+        else if ((int(choice) >= 97) && (int(choice) <= 106))
+        {
+            if (snackList[int(choice) - 97].getItemCount() > 0)
             {
-                snackList[i].increaseCount();
-                // set total cost from cost of item multiplied by count
-                snackList[i].setTotalCost((snackList[i].getCost() + snackList[i].getTotalItemCost()));
-                subTotal += snackList[i].getCost();
+                snackList[int(choice) - 97].decreaseCount();
+                cout << "\033[2J\033[1;1H"; // clear screen
+                subTotal -= snackList[int(choice) - 97].getCost();
                 displayMenu(snackList);
-                cout << "\tAmount Due\t\n";
-                cout << "\tTotal: " << subTotal;
-            } // End if((int(choice) >= 65) && (int(choice) <= 74))
+                cout << "\t\t\tAmount Due\t\n";
+                cout << "\t\t\tTotal: " << subTotal << endl;
 
-            // check if choice is lowercase letter by converting char to integer and testing
-            //   it to see if it is between 97(a) and 106(j)
-            else if ((int(choice) >= 97) && (int(choice) <= 106))
+            } // End if(snackList[i].getItemCount() >= 0)
+            else
             {
-                if (snackList[i].getItemCount() > 0)
-                {
-                    snackList[i].decreaseCount();
-                    snackList[i].setTotalCost(snackList[i].getTotalItemCost() - snackList[i].getCost());
-                    subTotal -= snackList[i].getCost();
-                    displayMenu(snackList);
-                    cout << "\tAmount Due\t\n";
-                    cout << "\tTotal: " << subTotal;
-
-                } // End if(snackList[i].getItemCount() >= 0)
-                else
-                {
-                    snackList[i].getCost();
-                    displayMenu(snackList);
-                    cout << "\tAmount Due\t\n";
-                    cout << "You can't remove item: " << snackList[i].getName() << " because you have " << snackList[i].getItemCount() << " count of that item.\n";
-                }
-            } // End if((int(choice) >= 97) && (int(choice) <= 106))
-            else if (toupper(choice) != 'X')
-            {
-                choice = validateChar(choice);
-                cout << "Your selection was invalid.";
+                cout << "\033[2J\033[1;1H"; // clear screen
+                snackList[int(choice) - 97].getCost();
+                displayMenu(snackList);
+                cout << "\t\t\tAmount Due\t\n";
+                cout << "\nYou can't remove item: " << snackList[int(choice) - 97].getName() << " because you have " << snackList[int(choice) - 97].getItemCount() << " count of that item.\n";
             }
+        } // End if((int(choice) >= 97) && (int(choice) <= 106))
+        else if (toupper(choice) != 'X')
+        {
+            choice = validateChar(choice);
+            cout << "\nYour selection was invalid.";
         }
 
     } while (toupper(choice) != 'X');
 
-            cout
+    cout
         << "Thank you for shopping with us. Have a nice day!!" << endl;
 }
 #endif // NO_CONTROL
