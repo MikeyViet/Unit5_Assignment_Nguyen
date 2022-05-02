@@ -274,6 +274,16 @@ void loadMenuItems(vector<Snacks> &tmpSnkList)
 #define NO_CONTROLLER
 #ifdef NO_CONTROLLER
 
+/******************************************************************
+ * Name:        displayMenu()
+ *
+ * Parameters:
+ *      Input:  Address of a vector of Snack Objects
+ *      Output: none
+ *
+ * Description: The function accepts an address to a vector of
+ *      Snacks and displays the menu with items on screen.
+ ******************************************************************/
 void displayMenu(vector<Snacks> &tmpSnkList)
 {
     cout << fixed << setprecision(2); // set doubles to 2 decimal
@@ -296,7 +306,7 @@ void displayMenu(vector<Snacks> &tmpSnkList)
 
     cout << "*Purchase Instructions*\n";
     cout << "-----------------------\n";
-    cout << "To make a selection, choose the letter (A/a - J/j) that corresponds with the snack on the Menu.\n";
+    cout << "To make a selection, choose the letter (A/a - J/j) that corresponds with the snack on the Menu (Q to quit).\n";
     cout << "Once you have confirmed that the item chosen is the correct one, you can enter:\n\n";
     cout << "Add snack item to cart by entering the capital letter next to your option.\n";
     cout << "Removed the snack item from your cart by entering the lowercase letter next ";
@@ -311,6 +321,7 @@ void displayMenu(vector<Snacks> &tmpSnkList)
  *
  * Parameters:
  *      Input:  Address of a vector of Snack Objects, subTotal(double)
+ *              cash(double), tip(double)
  *      Output: none
  *
  * Description: The function accepts an address to a vector of
@@ -479,6 +490,19 @@ void controlOrderMenu(vector<Snacks> &snackList)
                 cout << "\t\t\tTotal $: " << cashAmount - subTotal << endl;
                 printReceipt(snackList, subTotal, cashAmount, tip);
             }
+
+            for(int i = 0; i < SIZE; i++)
+            {
+                snackList[i].setItemCount(0);
+            }
+            subTotal = 0.0;
+            cashAmount = 0.0;
+            change = 0.0;
+            tip = 0.0;
+            cout << "\033[2J\033[1;1H"; // clear screen
+            displayMenu(snackList);
+            cout << "Thank you for shopping with us. Have a nice day!!" << endl;
+
         }
         else if (toupper(choice) != 'X')
         {
@@ -486,10 +510,8 @@ void controlOrderMenu(vector<Snacks> &snackList)
             cout << "\nYour selection was invalid.";
         }
 
-    } while (toupper(choice) != 'X');
+    } while (toupper(choice) != 'Q');
 
-    cout
-        << "Thank you for shopping with us. Have a nice day!!" << endl;
 }
 
 
