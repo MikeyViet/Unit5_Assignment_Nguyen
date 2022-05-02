@@ -289,7 +289,7 @@ void displayMenu(vector<Snacks> &tmpSnkList)
     cout << fixed << setprecision(2); // set doubles to 2 decimal
     cout << "\nThis is the what Michael Ripped-Off from DrT's Efficient Menu to Imitate\n"
          << endl;
-    cout << "ADD  \tNAME \t\t\t  COST \t    REMOVE    COUNT\t---DESCRIPTION---" << endl;
+    cout << "ADD  \tNAME \t\t  COST \t    REMOVE    COUNT\t---DESCRIPTION---" << endl;
     for (int i = 0; i < SIZE; i++)
     {
         cout << tmpSnkList[i].getAddCartLetter() << ")";
@@ -330,7 +330,7 @@ void displayMenu(vector<Snacks> &tmpSnkList)
  ******************************************************************/
 void printReceipt(vector<Snacks> &tmpSnkList, double sTotal, double cash, double tip)
 {
-    cout << "NAME \t\t\t   COST\t       QUANTITY" << endl;
+    cout << "NAME \t\t  COST\t       QUANTITY" << endl;
 
     for (int i = 0; i < SIZE; i++)
     {
@@ -361,7 +361,7 @@ void printReceipt(vector<Snacks> &tmpSnkList, double sTotal, double cash, double
     ofstream outFile;
     outFile.open("receipt.txt", ios::app);
 
-    outFile << "NAME \t\t\t\t\t\t   COST\t       QUANTITY" << endl;
+    outFile << "NAME \t\t\t   COST\t       QUANTITY" << endl;
 
     for (int i = 0; i < SIZE; i++)
     {

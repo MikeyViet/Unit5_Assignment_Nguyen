@@ -1,0 +1,18 @@
+NAME 						   COST	       QUANTITY
+Burrito            $5.00          1
+Hamburger          $7.50          1
+Chocolate Sundae   $3.50          1
+
+Sub Total:         $17.92  (12.00% tip included)
+Cash Tendered:     $34.00  
+
+Change Due:        $16.08  
+
+NAME 			   COST	       QUANTITY
+Hamburger          $7.50          1
+
+Sub Total:         $8.40   (12.00% tip included)
+Cash Tendered:     $67.00  
+
+Change Due:        $58.60  
+
