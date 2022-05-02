@@ -11,6 +11,7 @@
 #include <string>
 #include <iomanip>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -316,21 +317,63 @@ void displayMenu(vector<Snacks> &tmpSnkList)
  *      Snacks objects and subTotal. The function will print a
  *      receipt showing the item, count, and total.
  ******************************************************************/
-void printReceipt(vector<Snacks> &tmpSnkList, double sTotal)
+void printReceipt(vector<Snacks> &tmpSnkList, double sTotal, double cash, double tip)
 {
-    cout << "NAME \t\t  COST\t    QUANTITY    COUNT\t---DESCRIPTION---" << endl;
+    cout << "NAME \t\t   COST\t       QUANTITY" << endl;
 
     for (int i = 0; i < SIZE; i++)
     {
         if (tmpSnkList[i].getItemCount() > 0)
         {
-            cout << left << setw(16) << tmpSnkList[i].getName();
-            cout << "  "
-                 << "$" << tmpSnkList[i].getCost() * tmpSnkList[i].getItemCount() << setw(7);
-            cout << right << tmpSnkList[i].getItemCount() << left << setw(7) << right << "  ";
-            cout << right << setw(2) << setfill('0') << tmpSnkList[i].getItemCount();
-            cout << left << "\t" << setw(10) << setfill(' ') << tmpSnkList[i].getDescription() << endl;
+            cout << left << setw(19) << tmpSnkList[i].getName();
+            cout << "$" << left << setw(7) << tmpSnkList[i].getCost() * tmpSnkList[i].getItemCount();
+            cout << right << setw(8) << tmpSnkList[i].getItemCount() << endl;
         }
+    }
+    cout << left << setw(20) << "\nSub Total:";
+    cout << "$" << left << setw(7) << sTotal << "(" << tip << "% tip included)" << endl;
+    cout << left << setw(19) << "Cash Tendered:";
+    cout << "$" << left << setw(7) << cash << endl << endl;
+    cout << left << setw(19) << "Change Due:";
+    if(cash == 0.0)
+    {
+    cout << "$" << left << setw(7) << "0.00" << endl << endl;
+    }
+    else
+    {
+        cout << "$" << left << setw(7) << cash - sTotal << endl << endl;
+    }
+
+    ofstream outFile;
+    outFile.open("receipt.txt", ios::app);
+
+    
+    outFile << "NAME \t\t   COST\t       QUANTITY" << endl;
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        if (tmpSnkList[i].getItemCount() > 0)
+        {
+            outFile << left << setw(19) << tmpSnkList[i].getName();
+            outFile << "$" << left << setw(7) << fixed << setprecision(2) << tmpSnkList[i].getCost() * tmpSnkList[i].getItemCount();
+            outFile << right << setw(8) << tmpSnkList[i].getItemCount() << endl;
+        }
+    }
+    outFile << left << setw(20) << "\nSub Total:";
+    outFile << "$" << left << setw(7) << sTotal << "(" << tip << "% tip included)" << endl;
+    outFile << left << setw(19) << "Cash Tendered:";
+    outFile << "$" << left << setw(7) << cash << endl
+            << endl;
+    outFile << left << setw(19) << "Change Due:";
+    if (cash == 0.0)
+    {
+        outFile << "$" << left << setw(7) << "0.00" << endl
+                << endl;
+    }
+    else
+    {
+        outFile << "$" << left << setw(7) << cash - sTotal << endl
+                << endl;
     }
 }
 
@@ -426,7 +469,15 @@ void controlOrderMenu(vector<Snacks> &snackList)
                 displayMenu(snackList);
                 cout << "\t\t\tChange Due\t\n";
                 cout << "\t\t\tTotal $: " << cashAmount - subTotal<< endl;
-                printReceipt(snackList, subTotal);
+                printReceipt(snackList, subTotal, cashAmount, tip);
+            }
+            else if(choice2 == 2)
+            {
+                cout << "\033[2J\033[1;1H"; // clear screen
+                displayMenu(snackList);
+                cout << "\t\t\tChange Due\t\n";
+                cout << "\t\t\tTotal $: " << cashAmount - subTotal << endl;
+                printReceipt(snackList, subTotal, cashAmount, tip);
             }
         }
         else if (toupper(choice) != 'X')

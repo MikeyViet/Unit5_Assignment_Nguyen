@@ -1,0 +1,42 @@
+NAME 		   COST	       QUANTITY
+Burrito            $5             1
+Chocolate Sundae   $7             2
+Apple Pie          $6             2
+Chicken Sandwich   $19            2
+Green Tea          $2.5           1
+Coke               $1             1
+Coffee             $0.75          1
+
+Sub Total:         $59.8125(45% tip included)
+Cash Tendered:     $70     
+
+Change Due:        $10.1875
+
+NAME 		   COST	       QUANTITY
+Burrito            $5             1
+Hamburger          $7.5           1
+Apple Pie          $3             1
+Chicken Sandwich   $19            2
+Green Tea          $2.5           1
+Coke               $1             1
+Coffee             $0.75          1
+Orange Juice       $5             2
+
+Sub Total:         $49     (12% tip included)
+Cash Tendered:     $66     
+
+Change Due:        $17     
+
+NAME 		   COST	       QUANTITY
+Burrito            $5.00          1
+Hamburger          $7.50          1
+Apple Pie          $6.00          2
+Chicken Sandwich   $9.50          1
+Green Tea          $5.00          2
+Coke               $1.00          1
+
+Sub Total:         $42.50  (25.00% tip included)
+Cash Tendered:     $80.00  
+
+Change Due:        $37.50  
+
