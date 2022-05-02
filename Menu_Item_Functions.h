@@ -289,7 +289,7 @@ void displayMenu(vector<Snacks> &tmpSnkList)
     cout << fixed << setprecision(2); // set doubles to 2 decimal
     cout << "\nThis is the what Michael Ripped-Off from DrT's Efficient Menu to Imitate\n"
          << endl;
-    cout << "ADD  \tNAME \t\t  COST \t    REMOVE    COUNT\t---DESCRIPTION---" << endl;
+    cout << "ADD  \tNAME \t\t\t  COST \t    REMOVE    COUNT\t---DESCRIPTION---" << endl;
     for (int i = 0; i < SIZE; i++)
     {
         cout << tmpSnkList[i].getAddCartLetter() << ")";
@@ -330,7 +330,7 @@ void displayMenu(vector<Snacks> &tmpSnkList)
  ******************************************************************/
 void printReceipt(vector<Snacks> &tmpSnkList, double sTotal, double cash, double tip)
 {
-    cout << "NAME \t\t   COST\t       QUANTITY" << endl;
+    cout << "NAME \t\t\t   COST\t       QUANTITY" << endl;
 
     for (int i = 0; i < SIZE; i++)
     {
@@ -344,22 +344,24 @@ void printReceipt(vector<Snacks> &tmpSnkList, double sTotal, double cash, double
     cout << left << setw(20) << "\nSub Total:";
     cout << "$" << left << setw(7) << sTotal << "(" << tip << "% tip included)" << endl;
     cout << left << setw(19) << "Cash Tendered:";
-    cout << "$" << left << setw(7) << cash << endl << endl;
+    cout << "$" << left << setw(7) << cash << endl
+         << endl;
     cout << left << setw(19) << "Change Due:";
-    if(cash == 0.0)
+    if (cash == 0.0)
     {
-    cout << "$" << left << setw(7) << "0.00" << endl << endl;
+        cout << "$" << left << setw(7) << "0.00" << endl
+             << endl;
     }
     else
     {
-        cout << "$" << left << setw(7) << cash - sTotal << endl << endl;
+        cout << "$" << left << setw(7) << cash - sTotal << endl
+             << endl;
     }
 
     ofstream outFile;
     outFile.open("receipt.txt", ios::app);
 
-    
-    outFile << "NAME \t\t   COST\t       QUANTITY" << endl;
+    outFile << "NAME \t\t\t\t\t\t   COST\t       QUANTITY" << endl;
 
     for (int i = 0; i < SIZE; i++)
     {
@@ -408,11 +410,11 @@ void controlOrderMenu(vector<Snacks> &snackList)
     double subTotal = 0.0;
     double tip = 0.0;
     double cashAmount = 0.0; // amount of cash given
-    double change = 0.0; // amount of change
-    
+    double change = 0.0;     // amount of change
+
     do
     {
-        cout << "\nPlease make a selection now: ";
+        cout << "\nPlease make a selection now (X to checkout): ";
         cin >> choice;
 
         if ((int(choice) >= 65) && (int(choice) <= 74))
@@ -458,7 +460,7 @@ void controlOrderMenu(vector<Snacks> &snackList)
             cout << "Please enter a tip percentage starting at 20%(do not type the % sign): ";
             tip = validateDouble(tip);
 
-            subTotal = subTotal + (subTotal * (tip/100));
+            subTotal = subTotal + (subTotal * (tip / 100));
 
             cout << "\033[2J\033[1;1H"; // clear
             displayMenu(snackList);
@@ -466,11 +468,11 @@ void controlOrderMenu(vector<Snacks> &snackList)
             cout << "\t\t\tTotal: " << subTotal << endl;
             cout << "Are you paying by cash or credit?(Enter 1: cash or 2: credit): ";
             choice2 = validateInt(choice2);
-            if (choice2 == 1) 
+            if (choice2 == 1)
             {
                 cout << "\nEnter cash amount: ";
                 cashAmount = validateDouble(cashAmount);
-                while(cashAmount <= subTotal)
+                while (cashAmount <= subTotal)
                 {
                     cout << "Your cash amount of: " << cashAmount << " is below total amount due of: " << subTotal << endl;
                     cout << "Please enter a new cash amount: ";
@@ -479,10 +481,10 @@ void controlOrderMenu(vector<Snacks> &snackList)
                 cout << "\033[2J\033[1;1H"; // clear screen
                 displayMenu(snackList);
                 cout << "\t\t\tChange Due\t\n";
-                cout << "\t\t\tTotal $: " << cashAmount - subTotal<< endl;
+                cout << "\t\t\tTotal $: " << cashAmount - subTotal << endl;
                 printReceipt(snackList, subTotal, cashAmount, tip);
             }
-            else if(choice2 == 2)
+            else if (choice2 == 2)
             {
                 cout << "\033[2J\033[1;1H"; // clear screen
                 displayMenu(snackList);
@@ -491,7 +493,7 @@ void controlOrderMenu(vector<Snacks> &snackList)
                 printReceipt(snackList, subTotal, cashAmount, tip);
             }
 
-            for(int i = 0; i < SIZE; i++)
+            for (int i = 0; i < SIZE; i++)
             {
                 snackList[i].setItemCount(0);
             }
@@ -499,10 +501,7 @@ void controlOrderMenu(vector<Snacks> &snackList)
             cashAmount = 0.0;
             change = 0.0;
             tip = 0.0;
-            cout << "\033[2J\033[1;1H"; // clear screen
-            displayMenu(snackList);
             cout << "Thank you for shopping with us. Have a nice day!!" << endl;
-
         }
         else if (toupper(choice) != 'X')
         {
@@ -511,10 +510,7 @@ void controlOrderMenu(vector<Snacks> &snackList)
         }
 
     } while (toupper(choice) != 'Q');
-
 }
-
-
 
 #endif // NO_CONTROL
 #endif
