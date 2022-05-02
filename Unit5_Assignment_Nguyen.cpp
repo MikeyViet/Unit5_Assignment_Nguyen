@@ -12,8 +12,9 @@ using namespace std;
 
 //global function prototypes
 void loadMenuItems(vector<Snacks>&);
-void displayMenu(vector<Snacks> &, vector<char> &);
-void controlOrderMenu(vector<Snacks>&, vector<char>&);
+void displayMenu(vector<Snacks>&);
+void controlOrderMenu(vector<Snacks>&);
+void printReceipt(vector<Snacks>&, double);
 
 int main()
 { 

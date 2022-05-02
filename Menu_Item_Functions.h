@@ -306,6 +306,35 @@ void displayMenu(vector<Snacks> &tmpSnkList)
          << endl;
 }
 /******************************************************************
+ * Name:        printReceipt()
+ *
+ * Parameters:
+ *      Input:  Address of a vector of Snack Objects, subTotal(double)
+ *      Output: none
+ *
+ * Description: The function accepts an address to a vector of
+ *      Snacks objects and subTotal. The function will print a
+ *      receipt showing the item, count, and total.
+ ******************************************************************/
+void printReceipt(vector<Snacks> &tmpSnkList, double sTotal)
+{
+    cout << "NAME \t\t  COST\t    QUANTITY    COUNT\t---DESCRIPTION---" << endl;
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        if (tmpSnkList[i].getItemCount() > 0)
+        {
+            cout << left << setw(16) << tmpSnkList[i].getName();
+            cout << "  "
+                 << "$" << tmpSnkList[i].getCost() * tmpSnkList[i].getItemCount() << setw(7);
+            cout << right << tmpSnkList[i].getItemCount() << left << setw(7) << right << "  ";
+            cout << right << setw(2) << setfill('0') << tmpSnkList[i].getItemCount();
+            cout << left << "\t" << setw(10) << setfill(' ') << tmpSnkList[i].getDescription() << endl;
+        }
+    }
+}
+
+/******************************************************************
  * Name:        controlOrderMenu()
  *
  * Parameters:
@@ -321,24 +350,12 @@ void displayMenu(vector<Snacks> &tmpSnkList)
 void controlOrderMenu(vector<Snacks> &snackList)
 {
     char choice = '\0'; // menu option chosen by user;
+    int choice2 = '\0'; // cash or credit option chosen by user
     double subTotal = 0.0;
-
-    // cout << "\nPlease take a look at the menu to decide what snack(s) you would like to ";
-    // cout << "purchase.\n"
-    //      << endl;
-
-    // cout << "*Purchase Instructions*\n";
-    // cout << "-----------------------\n";
-    // cout << "To make a selection, choose the letter (A/a - J/j) that corresponds with the snack on the Menu.\n";
-    // cout << "Once you have confirmed that the item chosen is the correct one, you can enter:\n\n";
-    // cout << "Add snack item to cart by entering the capital letter next to your option.\n";
-    // cout << "Removed the snack item from your cart by entering the lowercase letter next ";
-    // cout << "to the same item.\n\n";
-    // cout << "Example: \n"
-    //      << "      " << right << setw(25) << "(A) - Adding snack to cart." << endl;
-    // cout << "      " << right << setw(25) << "(a) - Adding snack to cart.\n"
-    //      << endl;
-
+    double tip = 0.0;
+    double cashAmount = 0.0; // amount of cash given
+    double change = 0.0; // amount of change
+    
     do
     {
         cout << "\nPlease make a selection now: ";
@@ -378,6 +395,40 @@ void controlOrderMenu(vector<Snacks> &snackList)
                 cout << "\nYou can't remove item: " << snackList[int(choice) - 97].getName() << " because you have " << snackList[int(choice) - 97].getItemCount() << " count of that item.\n";
             }
         } // End if((int(choice) >= 97) && (int(choice) <= 106))
+        else if (toupper(choice) == 'X')
+        {
+            cout << "\033[2J\033[1;1H"; // clear screen
+            displayMenu(snackList);
+            cout << "\t\t\tAmount Due\t\n";
+            cout << "\t\t\tTotal: " << subTotal << endl;
+            cout << "Please enter a tip percentage starting at 20%(do not type the % sign): ";
+            tip = validateDouble(tip);
+
+            subTotal = subTotal + (subTotal * (tip/100));
+
+            cout << "\033[2J\033[1;1H"; // clear
+            displayMenu(snackList);
+            cout << "\t\t\tAmount Due\t\n";
+            cout << "\t\t\tTotal: " << subTotal << endl;
+            cout << "Are you paying by cash or credit?(Enter 1: cash or 2: credit): ";
+            choice2 = validateInt(choice2);
+            if (choice2 == 1) 
+            {
+                cout << "\nEnter cash amount: ";
+                cashAmount = validateDouble(cashAmount);
+                while(cashAmount <= subTotal)
+                {
+                    cout << "Your cash amount of: " << cashAmount << " is below total amount due of: " << subTotal << endl;
+                    cout << "Please enter a new cash amount: ";
+                    cashAmount = validateDouble(cashAmount);
+                }
+                cout << "\033[2J\033[1;1H"; // clear screen
+                displayMenu(snackList);
+                cout << "\t\t\tChange Due\t\n";
+                cout << "\t\t\tTotal $: " << cashAmount - subTotal<< endl;
+                printReceipt(snackList, subTotal);
+            }
+        }
         else if (toupper(choice) != 'X')
         {
             choice = validateChar(choice);
@@ -389,6 +440,9 @@ void controlOrderMenu(vector<Snacks> &snackList)
     cout
         << "Thank you for shopping with us. Have a nice day!!" << endl;
 }
+
+
+
 #endif // NO_CONTROL
 #endif
 //≤

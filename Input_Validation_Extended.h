@@ -45,8 +45,6 @@ int validateInt(int &intInput)
 {
     while (true)
     {
-        cout << "Enter an integer: ";
-
         try
         {
             intInput = getValidatedInput<int>();
