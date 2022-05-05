@@ -1,4 +1,16 @@
-// A  Restaurant Project Struct style Dr_T Dr. Tyson McMillan 10-2-2019
+/********************************************************************
+ *  Assignment: Unit 5 
+ *  Title:      Fast Food Restaurant Menu
+ *  Student:    Michael Nguyen
+ *  Teacher:    Tyson McMillan
+ *  Date:       04/26/2022
+ *
+ *  Description: This program builds on a structure driven menu created
+ *               by Dr. Tyson McMillan. The menu was converted from 
+ *               structure based to class based. The assignment helped
+ *               further understanding of vectors and classes. 
+ *
+ *********************************************************************/
 #include "Menu_Item_Functions.h"
 #include <iostream>
 #include <string>
